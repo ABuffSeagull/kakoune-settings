@@ -34,8 +34,25 @@ hook global WinCreate .* %{
 # Show extra whitespace and something else
 hook global WinCreate .* %{
   addhl show_matching
-  addhl regex '\h+$' 0:default,red
+  addhl regex '\h+$' 0:Error
 }
+# Volatile highlighting
+face volatile +bi
+hook global NormalKey [ydcpP] %{ try %{
+  add-highlighter dynregex \Q%reg{"}\E 0:volatile
+}}
+hook global NormalKey [^ydcpP] %{ try %{
+  remove-highlighter dynregex_\Q%reg{"}\E
+}}
+face search +bi
+# Smart search highlighting
+hook global NormalKey [/?*nN]|<a-[/?*nN]> %{ try %{
+  add-highlighter dynregex '%reg{/}' 0:search
+}}
+hook global NormalKey <esc> %{ try %{
+  remove-highlighter dynregex_%reg{<slash>}
+}}
+
 
 ### Language Specific Stuff ###
 # Javascript
