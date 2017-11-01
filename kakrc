@@ -65,6 +65,12 @@ hook global WinSetOption filetype=javascript %{
 }
 
 # C & C++
+hook global WinSetOption filetype=cpp %{
+  set clang_options 'std=c++11'
+}
+hook global WinSetOption filetype=c %{
+  set clang_options 'std=c11'
+}
 hook global WinSetOption filetype=(c|cpp) %{
 	clang-enable-autocomplete
 	clang-enable-diagnostics
