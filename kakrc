@@ -57,8 +57,6 @@ hook global NormalKey <esc> %{ try %{
 ### Language Specific Stuff ###
 # Javascript
 hook global WinSetOption filetype=javascript %{
-  set buffer indentwidth 4
-  set buffer tabstop 4
   set window lintcmd 'eslint -j --format=node_modules/eslint-formatter-kakoune'
   lint-enable
   lint
