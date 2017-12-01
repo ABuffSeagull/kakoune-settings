@@ -4,7 +4,7 @@ set global indentwidth 2
 
 ### UX Stuff ###
 # Mouse Support
-set global ui_options ncurses_assistant=none:ncurses_enable_mouse=true
+set global ui_options ncurses_enable_mouse=true
 # Double h instead of escape
 hook global InsertChar h %{ try %{
     exec -draft hH <a-k>hh<ret> d
