@@ -10,6 +10,7 @@ hook global InsertChar h %{ try %{
     exec -draft hH <a-k>hh<ret> d
     exec <esc>
 }}
+# IDE mode or whatever
 def ide %{
   rename-client main
   set global jumpclient main
@@ -17,10 +18,26 @@ def ide %{
   new rename-client tools
   set global toolsclient tools
 
-  new rename-client docs
+  tmux-new-vertical rename-client docs
   set global docsclient docs
 }
-
+# Different 'w' functionality
+def -hidden select-prev-word-part %{
+  exec <a-/>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+}
+def -hidden select-next-word-part %{
+  exec /[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+}
+def -hidden extend-prev-word-part %{
+  exec <a-?>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+}
+def -hidden extend-next-word-part %{
+  exec ?[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+}
+map global normal w :select-next-word-part<ret>
+map global normal W :extend-next-word-part<ret>
+# Change grep command
+set global grepcmd 'ag'
 
 ### UI Stuff ###
 # Highlight 81 column
@@ -57,7 +74,7 @@ hook global NormalKey <esc> %{ try %{
 ### Language Specific Stuff ###
 # Javascript
 hook global WinSetOption filetype=javascript %{
-  set window lintcmd 'eslint -j --format=node_modules/eslint-formatter-kakoune'
+  set window lintcmd './node_modules/.bin/eslint --format=node_modules/eslint-formatter-kakoune'
   lint-enable
   lint
 }
@@ -78,7 +95,13 @@ hook global WinSetOption filetype=(c|cpp) %{
 	lint-enable
 	lint
 }
-
+# Odin
 hook global WinSetOption filetype=odin %{
-  set window lintcmd 'odin build'
+  set buffer comment_line '//'
+  set buffer comment_block '/*:*/'
 }
+
+#hook global WinSetOption filetype=odin %{
+  #set window lintcmd 'odin build'
+#}
+
