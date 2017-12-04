@@ -96,10 +96,7 @@ hook global WinSetOption filetype=(c|cpp) %{
 	lint
 }
 # Odin
-hook global WinSetOption filetype=odin %{
-  set buffer comment_line '//'
-  set buffer comment_block '/*:*/'
-}
+source odin.kak
 
 #hook global WinSetOption filetype=odin %{
   #set window lintcmd 'odin build'
