@@ -74,6 +74,8 @@ hook global NormalKey <esc> %{ try %{
 ### Language Specific Stuff ###
 # Javascript
 hook global WinSetOption filetype=javascript %{
+  set buffer comment_line '// '
+  set buffer comment_block '/* : */'
   set window lintcmd './node_modules/.bin/eslint --format=node_modules/eslint-formatter-kakoune'
   lint-enable
   lint
