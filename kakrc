@@ -97,6 +97,3 @@ hook global WinSetOption filetype=(c|cpp) %{
 	lint-enable
 	lint
 }
-# Odin
-source ~/.config/kak/odin.kak
-
