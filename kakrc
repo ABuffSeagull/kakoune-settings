@@ -98,9 +98,5 @@ hook global WinSetOption filetype=(c|cpp) %{
 	lint
 }
 # Odin
-source odin.kak
-
-#hook global WinSetOption filetype=odin %{
-  #set window lintcmd 'odin build'
-#}
+source ~/.config/kak/odin.kak
 
