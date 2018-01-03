@@ -60,6 +60,8 @@ hook global WinSetOption filetype=kotlin %{
     hook window InsertChar \n -group kotlin-indent kotlin-indent-on-new-line
     hook window InsertChar \{ -group kotlin-indent kotlin-indent-on-opening-curly-brace
     hook window InsertChar \} -group kotlin-indent kotlin-indent-on-closing-curly-brace
+    set buffer comment_line '//'
+    set buffer comment_block '/*:*/'
     set buffer indentwidth 4
     set buffer tabstop 4
 }
