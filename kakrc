@@ -22,20 +22,20 @@ def ide %{
   set global docsclient docs
 }
 # Different 'w' functionality
-def -hidden select-prev-word-part %{
-  exec <a-/>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-}
-def -hidden select-next-word-part %{
-  exec /[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-}
-def -hidden extend-prev-word-part %{
-  exec <a-?>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-}
-def -hidden extend-next-word-part %{
-  exec ?[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-}
-map global normal w :select-next-word-part<ret>
-map global normal W :extend-next-word-part<ret>
+#def -hidden select-prev-word-part %{
+  #exec <a-/>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+#}
+#def -hidden select-next-word-part %{
+  #exec /[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+#}
+#def -hidden extend-prev-word-part %{
+  #exec <a-?>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+#}
+#def -hidden extend-next-word-part %{
+  #exec ?[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
+#}
+#map global normal w :select-next-word-part<ret>
+#map global normal W :extend-next-word-part<ret>
 # Change grep command
 set global grepcmd 'ag'
 
@@ -77,6 +77,7 @@ hook global WinSetOption filetype=javascript %{
   set buffer comment_line '// '
   set buffer comment_block '/* : */'
   set window lintcmd './node_modules/.bin/eslint --format=node_modules/eslint-formatter-kakoune'
+  set window formatcmd 'prettier'
   lint-enable
   lint
 }
