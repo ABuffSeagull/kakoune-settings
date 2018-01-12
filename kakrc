@@ -46,11 +46,11 @@ hook global WinCreate .* %{
 }
 # Number the lines
 hook global WinCreate .* %{
-  add-highlighter global/ number_lines -relative -hlcursor
+  add-highlighter window/ number_lines -relative -hlcursor
 }
 # Show extra whitespace and something else
 hook global WinCreate .* %{
-  add-highlighter global/ regex '\h+$' 0:Error
+  add-highlighter window/ regex '\h+$' 0:Error
 }
 # Volatile highlighting
 face volatile +bi
