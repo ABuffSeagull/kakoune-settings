@@ -11,20 +11,20 @@ hook global BufCreate .*\.odin %{
 # Highlighters
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
-add-highlighter -group / regions -default code odin \
+add-highlighter shared/ regions -default code odin \
     back_string '`' '`' '' \
     double_string '"' (?<!\\)(\\\\)*" '' \
     single_string "'" (?<!\\)(\\\\)*' '' \
     comment /\* \*/ '' \
     comment '//' $ ''
 
-add-highlighter -group /odin/back_string fill string
-add-highlighter -group /odin/double_string fill string
-add-highlighter -group /odin/single_string fill string
-add-highlighter -group /odin/comment fill comment
+add-highlighter shared/odin/back_string fill string
+add-highlighter shared/odin/double_string fill string
+add-highlighter shared/odin/single_string fill string
+add-highlighter shared/odin/comment fill comment
 
-add-highlighter -group /odin/code regex %{\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b} 0:value
-add-highlighter -group /odin/code regex %{\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX]([0-9a-fA-F]|_)+))[ijk]?\b} 0:value
+add-highlighter shared/odin/code regex %{\b(\d(\d|_)*(.\d(\d|_)*)?)((e|E)(\+|-)?\d+)?[ijk]?\b} 0:value
+add-highlighter shared/odin/code regex %{\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)|(0[xX]([0-9a-fA-F]|_)+))[ijk]?\b} 0:value
 
 %sh{
     # Grammar
@@ -55,11 +55,11 @@ add-highlighter -group /odin/code regex %{\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+
 
     # Highlight keywords
     printf %s "
-        add-highlighter -group /odin/code regex \b(${keywords})\b 0:keyword
-        add-highlighter -group /odin/code regex \b(${attributes})\b 0:attribute
-        add-highlighter -group /odin/code regex \b(${types})\b 0:type
-        add-highlighter -group /odin/code regex \b(${values})\b 0:value
-        add-highlighter -group /odin/code regex \b(${functions})\b 0:builtin
+        add-highlighter shared/odin/code regex \b(${keywords})\b 0:keyword
+        add-highlighter shared/odin/code regex \b(${attributes})\b 0:attribute
+        add-highlighter shared/odin/code regex \b(${types})\b 0:type
+        add-highlighter shared/odin/code regex \b(${values})\b 0:value
+        add-highlighter shared/odin/code regex \b(${functions})\b 0:builtin
     "
 }
 
@@ -98,19 +98,20 @@ def -hidden odin-indent-on-closing-curly-brace %[
 # Initialization
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-hook -group odin-highlight global WinSetOption filetype=odin %{ add-highlighter ref odin }
+hook -group odin-highlight global WinSetOption filetype=odin %{ add-highlighter window ref odin }
 
 hook global WinSetOption filetype=odin %{
     # cleanup trailing whitespaces when exiting insert mode
-    hook window InsertEnd .* -group odin-hooks %{ try %{ exec -draft <a-x>s^\h+$<ret>d } }
+    hook window InsertEnd .* -group odin-hooks %{ try %{ execute-keys -draft <a-x>s^\h+$<ret>d } }
     hook window InsertChar \n -group odin-indent odin-indent-on-new-line
     hook window InsertChar \{ -group odin-indent odin-indent-on-opening-curly-brace
     hook window InsertChar \} -group odin-indent odin-indent-on-closing-curly-brace
     set buffer comment_line '//'
-    set buffer comment_block '/*:*/'
+    set buffer comment_block_begin '/*'
+    set buffer comment_block_end '*/'
 }
 
-hook -group odin-highlight global WinSetOption filetype=(?!odin).* %{ remove-highlighter odin }
+hook -group odin-highlight global WinSetOption filetype=(?!odin).* %{ remove-highlighter window/odin }
 
 hook global WinSetOption filetype=(?!odin).* %{
     remove-hooks window odin-hooks
