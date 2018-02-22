@@ -1,3 +1,9 @@
 [submodule "autoload/kakoune-ecmascript"]
 	path = autoload/kakoune-ecmascript
 	url = https://github.com/Delapouite/kakoune-ecmascript.git
+[submodule "autoload/kakoune-npm"]
+	path = autoload/kakoune-npm
+	url = https://github.com/Delapouite/kakoune-npm.git
+[submodule "autoload/kakoune-typescript"]
+	path = autoload/kakoune-typescript
+	url = https://github.com/atomrc/kakoune-typescript.git
