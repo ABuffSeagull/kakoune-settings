@@ -76,8 +76,8 @@ hook global WinSetOption filetype=javascript %{
   set buffer comment_line '// '
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
-  set window lintcmd 'eslint --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'prettier'
+  set window lintcmd 'npx eslint --format=node_modules/eslint-formatter-kakoune'
+  set window formatcmd 'npx prettier'
   lint-enable
   lint
 }
