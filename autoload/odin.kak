@@ -37,8 +37,8 @@ add-highlighter shared/odin/code regex %{\b((0b(0|1|_)+)|(0o(\d|_)+)|(0d(\d|_)+)
     types="${types}|f16|f32|f64|complex16|complex32|complex64|complex128"
     types="${types}|quaternion128|quaternion256|byte|bool|string|rune|rawptr|any"
     values="false|true|nil"
-    functions="cast|transmute|proc|make|new|new_clone|size_of|align_of|offset_of"
-    functions="${functions}|type_of|type_info_of|expand_to_tuple"
+    functions="type_info_base|type_info_base_without_enum|copy|append|append_string|make|len"
+    functions="${functions}|pop|clear|delete|reserve|free|resize|new|new_clone|assert|panic"
     ### Leftover stuff from the original ###
       #scope: keyword.function.odin
     #- match: '(#\s*{{identifier}})'
