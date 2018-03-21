@@ -72,12 +72,12 @@ hook global NormalKey <esc> %{ try %{
 
 ### Language Specific Stuff ###
 # Javascript
-hook global WinSetOption filetype=javascript %{
+hook global WinSetOption filetype=ecmascript %{
   set buffer comment_line '// '
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
-  set window lintcmd 'npx eslint --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'npx prettier'
+  set window lintcmd 'yarn eslint --format=node_modules/eslint-formatter-kakoune'
+  set window formatcmd 'yarn prettier'
   lint-enable
   lint
 }
@@ -97,4 +97,11 @@ hook global WinSetOption filetype=(c|cpp) %{
 	set window formatcmd 'astyle'
 	lint-enable
 	lint
+}
+
+# Rust
+hook global WinSetOption filetype=rust %{
+  set window formatcmd 'rustfmt'
+  set global tabstop 4
+  set global indentwidth 4
 }
