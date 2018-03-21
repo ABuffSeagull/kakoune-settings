@@ -76,8 +76,8 @@ hook global WinSetOption filetype=ecmascript %{
   set buffer comment_line '// '
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
-  set window lintcmd 'yarn eslint --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'yarn prettier'
+  set window lintcmd 'yarn --silent eslint --format=node_modules/eslint-formatter-kakoune'
+  set window formatcmd 'yarn --silent run prettier'
   lint-enable
   lint
 }
