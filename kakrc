@@ -53,7 +53,7 @@ hook global WinCreate .* %{
   add-highlighter window/ regex '\h+$' 0:Error
 }
 # Volatile highlighting
-face volatile +bi
+face global volatile +bi
 hook global NormalKey [ydcpP] %{ try %{
   add-highlighter global/ dynregex \Q%reg{"}\E 0:volatile
 }}
@@ -61,7 +61,7 @@ hook global NormalKey [^ydcpP] %{ try %{
   remove-highlighter global/dynregex_\Q%reg{"}\E
 }}
 # Smart search highlighting
-face search +bi
+face global search +bi
 hook global NormalKey [/?*nN]|<a-[/?*nN]> %{ try %{
   add-highlighter global/ dynregex '%reg{/}' 0:search
 }}
@@ -76,10 +76,9 @@ hook global WinSetOption filetype=ecmascript %{
   set buffer comment_line '// '
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
-  set window lintcmd 'yarn --silent eslint --format=node_modules/eslint-formatter-kakoune'
+  set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
   set window formatcmd 'yarn --silent run prettier'
   lint-enable
-  lint
 }
 
 # C & C++
