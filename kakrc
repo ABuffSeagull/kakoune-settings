@@ -69,6 +69,9 @@ hook global NormalKey <esc> %{ try %{
   remove-highlighter global/dynregex_%reg{<slash>}
 }}
 
+# Connect to the lsp server
+%sh{kak-lsp --kakoune}
+
 
 ### Language Specific Stuff ###
 # Javascript
@@ -76,9 +79,9 @@ hook global WinSetOption filetype=ecmascript %{
   set buffer comment_line '// '
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
-  set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
+  #set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
   set window formatcmd 'yarn --silent run prettier'
-  lint-enable
+  #lint-enable
 }
 
 # C & C++
@@ -103,4 +106,9 @@ hook global WinSetOption filetype=rust %{
   set window formatcmd 'rustfmt'
   set global tabstop 4
   set global indentwidth 4
+}
+
+# Elixir
+hook global WinSetOption filetype=elixir %{
+  set window formatcmd 'mix format -'
 }
