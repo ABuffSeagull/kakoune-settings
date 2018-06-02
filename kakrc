@@ -114,5 +114,6 @@ define-command -hidden elixir-deindent-on-end %[
 ]
 hook global WinSetOption filetype=elixir %{
   set window formatcmd 'mix format -'
+  set window makecmd 'mix'
   hook window InsertChar d -group elixir-indent elixir-deindent-on-end
 }
