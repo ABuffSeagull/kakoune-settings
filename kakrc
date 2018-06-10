@@ -110,7 +110,7 @@ hook global WinSetOption filetype=rust %{
 
 # Elixir
 define-command -hidden elixir-deindent-on-end %[
-	try %[ execute-keys -itersel -draft x<a-k>^\h+end$<ret><lt> ]
+	try %[ execute-keys -itersel -draft x<a-k>^\h+(end|else)$<ret><lt> ]
 ]
 hook global WinSetOption filetype=elixir %{
   set window formatcmd 'mix format -'
