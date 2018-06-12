@@ -75,6 +75,9 @@ hook global NormalKey <esc> %{ try %{
 # Copy to clipboard
 map global user c <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
 
+# Comment line
+map global user / :comment-line<ret> -docstring 'comment line'
+
 ### Language Specific Stuff ###
 # Javascript
 hook global WinSetOption filetype=ecmascript %{
