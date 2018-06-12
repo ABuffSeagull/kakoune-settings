@@ -72,6 +72,8 @@ hook global NormalKey <esc> %{ try %{
 # Connect to the lsp server
 %sh{kak-lsp --kakoune}
 
+# Copy to clipboard
+map global user c <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
 
 ### Language Specific Stuff ###
 # Javascript
