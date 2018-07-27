@@ -73,7 +73,7 @@ hook global NormalKey <esc> %{ try %{
 %sh{kak-lsp --kakoune}
 
 # Copy to clipboard
-map global user c <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
+map global user y <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
 
 # Comment line
 map global user / :comment-line<ret> -docstring 'comment line'
@@ -85,8 +85,15 @@ hook global WinSetOption filetype=ecmascript %{
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
   #set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'yarn --silent run prettier'
+  set window formatcmd 'prettier'
+  set window makecmd 'npm run'
   #lint-enable
+}
+
+# Typescript
+hook global WinSetOption filetype=typescript %{
+  set window formatcmd 'prettier'
+  set window makecmd 'npm run'
 }
 
 # C & C++
