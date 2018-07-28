@@ -40,6 +40,7 @@ def ide %{
 set global grepcmd 'ag'
 
 ### UI Stuff ###
+colorscheme lucius
 # Highlight 81 column
 hook global WinCreate .* %{
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
