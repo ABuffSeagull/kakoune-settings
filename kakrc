@@ -40,7 +40,7 @@ def ide %{
 set global grepcmd 'ag'
 
 ### UI Stuff ###
-colorscheme lucius
+colorscheme tomorrow-night
 # Highlight 81 column
 hook global WinCreate .* %{
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
@@ -86,7 +86,7 @@ hook global WinSetOption filetype=ecmascript %{
   set buffer comment_block_begin '/* '
   set buffer comment_block_end ' */'
   #set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'prettier'
+  set window formatcmd 'prettier --parser flow'
   set window makecmd 'npm run'
   #lint-enable
 }
@@ -129,4 +129,9 @@ hook global WinSetOption filetype=elixir %{
   set window formatcmd 'mix format -'
   set window makecmd 'mix'
   hook window InsertChar d -group elixir-indent elixir-deindent-on-end
+}
+
+# Vue
+hook global WinSetOption filetype=vue %{
+  set window formatcmd 'prettier --parser vue'
 }
