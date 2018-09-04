@@ -1,0 +1,13 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/alexherbo2/auto-pairs.kak.git
+	branch = master
+	commit = dcf80a0aec35928d010608cc75e354f7f91643cb
+	parent = 6b323b250609c2afb182b36248151f49e025f5df
+	method = merge
+	update = auto
+	cmdver = 0.4.1
