@@ -6,8 +6,8 @@
 [subrepo]
 	remote = https://github.com/alexherbo2/auto-pairs.kak.git
 	branch = master
-	commit = dcf80a0aec35928d010608cc75e354f7f91643cb
-	parent = 6b323b250609c2afb182b36248151f49e025f5df
+	commit = 52205408195fe3a5a8e08793c113f54ce9fa3cf8
+	parent = 261767b4c70d51fe77e321d5dc1573c5f728f9be
 	method = merge
 	update = auto
 	cmdver = 0.4.1
