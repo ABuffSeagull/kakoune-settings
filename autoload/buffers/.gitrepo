@@ -1,0 +1,13 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Delapouite/kakoune-buffers.git
+	branch = master
+	commit = e6a10bee5700b56c44519572a304ad74ec0681fa
+	parent = cf242bf1e14cde0917aaf496ad53a999b248efcd
+	method = merge
+	update = auto
+	cmdver = 0.4.1
