@@ -41,17 +41,15 @@ set global grepcmd 'ag'
 
 ### UI Stuff ###
 colorscheme tomorrow-night
+hook global WinCreate .* %{
 # Highlight 81 column
-hook global WinCreate .* %{
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
-}
-# Number the lines
-hook global WinCreate .* %{
+  # Number the lines
   add-highlighter window/ number-lines -relative -hlcursor
-}
-# Show extra whitespace and something else
-hook global WinCreate .* %{
+  # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
+  # Enable Auto-pairs
+  auto-pairs-enable
 }
 # Volatile highlighting
 face global volatile +bi
