@@ -1,0 +1,1 @@
+../../kak-plugins/kakoune-ecmascript/ecmascript.kak
