@@ -47,7 +47,7 @@ hook global WinCreate .* %{
 }
 # Number the lines
 hook global WinCreate .* %{
-  add-highlighter window/ number_lines -relative -hlcursor
+  add-highlighter window/ number-lines -relative -hlcursor
 }
 # Show extra whitespace and something else
 hook global WinCreate .* %{
@@ -71,7 +71,7 @@ hook global NormalKey <esc> %{ try %{
 }}
 
 # Connect to the lsp server
-%sh{kak-lsp --kakoune}
+# %sh{kak-lsp --kakoune -s $kak_session}
 
 # Copy to clipboard
 map global user y <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
