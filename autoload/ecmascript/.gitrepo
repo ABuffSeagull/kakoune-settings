@@ -1,0 +1,13 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/Delapouite/kakoune-ecmascript.git
+	branch = master
+	commit = e6a60cd21a2e9e2cb8fa97343c28f8f187a92585
+	parent = 3bca077ebd1d68a194fd71a58650e7160403de4f
+	method = merge
+	update = auto
+	cmdver = 0.4.1
