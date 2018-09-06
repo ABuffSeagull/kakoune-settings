@@ -11,34 +11,23 @@ hook global BufCreate .*\.vue %{
 # Highlighters
 # ‾‾‾‾‾‾‾‾‾‾‾‾
 
-add-highlighter shared/ regions vue                  \
-    tag     <          >                                         '' \
-    pug      <template\b.*?lang="pug".*?>\K      (?=</template>) '' \
-    html     <template\b.*?>\K                   (?=</template>) '' \
-    scss     <style\b.*?lang="scss".*?>\K        (?=</style>)    '' \
-    sass     <style\b.*?lang="sass".*?>\K        (?=</style>)    '' \
-    less     <style\b.*?lang="less".*?>\K        (?=</style>)    '' \
-    css      <style\b.*?>\K                      (?=</style>)    '' \
-    ts       <script\b.*?lang="typescript".*?>\K (?=</script>)   '' \
-    js       <script\b.*?>\K                     (?=</script>)   ''
+add-highlighter shared/vue regions
+add-highlighter shared/vue/tag  region  <          >  regions
+add-highlighter shared/vue/pug  region  <template\b.*?lang="pug".*?>\K      (?=</template>) ref pug
+add-highlighter shared/vue/html region  <template\b.*?>\K                   (?=</template>) ref html
+add-highlighter shared/vue/scss region  <style\b.*?lang="scss".*?>\K        (?=</style>)    ref scss
+add-highlighter shared/vue/sass region  <style\b.*?lang="sass".*?>\K        (?=</style>)    ref sass
+add-highlighter shared/vue/less region  <style\b.*?lang="less".*?>\K        (?=</style>)    ref less
+add-highlighter shared/vue/css  region  <style\b.*?>\K                      (?=</style>)    ref css
+add-highlighter shared/vue/ts   region  <script\b.*?lang="typescript".*?>\K (?=</script>)   ref ts
+add-highlighter shared/vue/js   region  <script\b.*?>\K                     (?=</script>)   ref ecmascript
 
-add-highlighter shared/vue/tag regex \b([a-zA-Z0-9_-]+)=? 1:attribute
-add-highlighter shared/vue/tag regex </?(\w+) 1:keyword
+add-highlighter shared/vue/tag/base default-region group
+add-highlighter shared/vue/tag/ region '"' (?<!\\)(\\\\)*" fill string
+add-highlighter shared/vue/tag/ region "'" "'"             fill string
 
-add-highlighter shared/vue/tag regions content \
-    string '"' (?<!\\)(\\\\)*"      '' \
-    string "'" "'"                  ''
-
-add-highlighter shared/vue/tag/content/string fill string
-
-add-highlighter shared/vue/pug  ref pug
-add-highlighter shared/vue/html ref html
-add-highlighter shared/vue/scss ref scss
-add-highlighter shared/vue/sass ref sass
-add-highlighter shared/vue/less ref less
-add-highlighter shared/vue/css  ref css
-add-highlighter shared/vue/ts   ref typescript
-add-highlighter shared/vue/js   ref ecmascript
+add-highlighter shared/vue/tag/base/ regex \b([a-zA-Z0-9_-]+)=? 1:attribute
+add-highlighter shared/vue/tag/base/ regex </?(\w+) 1:keyword
 
 # Commands
 # ‾‾‾‾‾‾‾‾
@@ -69,7 +58,7 @@ define-command -hidden vue-indent-on-new-line %{
 # Initialization
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-hook -group vue-highlight global WinSetOption filetype=(?:vue|xml) %{ add-highlighter window ref vue }
+hook -group vue-highlight global WinSetOption filetype=(?:vue|xml) %{ add-highlighter window/vue ref vue }
 
 hook global WinSetOption filetype=(?:vue|xml) %{
     hook window ModeChange insert:.* -group vue-hooks  vue-filter-around-selections
