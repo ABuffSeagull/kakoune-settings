@@ -1,1 +1,0 @@
-../../kak-plugins/kakoune-extra/filetype/git.kak

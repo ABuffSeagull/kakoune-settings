@@ -1,10 +1,38 @@
+### Plugins ###
+# Plug
+source '~/.cache/kakoune_plugins/plug.kak/rc/plug.kak'
+set-option global plug_install_dir '~/.cache/kakoune_plugins'
+plug andreyorst/plug.kak
+plug h-youhei/kakoune-surround
+plug alexherbo2/auto-pairs.kak
+plug abuffseagull/kakoune-buffers
+plug occivink/kakoune-sudo-write
+plug abuffseagull/kakoune-extra
+plug alexherbo2/volatile-highlighting.kak
+plug alexherbo2/search-highlighting.kak
+plug abuffseagull/kakoune-ecmascript
+plug abuffseagull/kakoune-vue
+
+# Surround
+declare-user-mode surround
+map global surround s ':surround<ret>' -docstring 'surround'
+map global surround c ':change-surround<ret>' -docstring 'change'
+map global surround d ':delete-surround<ret>' -docstring 'delete'
+map global surround t ':select-surrounding-tag<ret>' -docstring 'select tag'
+map global user 's' ':enter-user-mode surround<ret>' -docstring 'surround'
+
+# Buffers
+hook global WinDisplay .* list-buffers
+map global user b ':enter-buffers-mode<ret>'              -docstring 'buffers…'
+map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+
 ### Indenting ###
-set global tabstop 2
-set global indentwidth 2
+set-option global tabstop 2
+set-option global indentwidth 2
 
 ### UX Stuff ###
 # Mouse Support
-set global ui_options ncurses_enable_mouse=true
+set-option global ui_options ncurses_enable_mouse=true
 # Double h instead of escape
 hook global InsertChar h %{ try %{
     exec -draft hH <a-k>hh<ret> d
@@ -13,34 +41,27 @@ hook global InsertChar h %{ try %{
 # IDE mode or whatever
 def ide %{
   rename-client main
-  set global jumpclient main
+  set-option global jumpclient main
 
   new rename-client tools
-  set global toolsclient tools
+  set-option global toolsclient tools
 
   tmux-new-vertical rename-client docs
-  set global docsclient docs
+  set-option global docsclient docs
 }
-# Different 'w' functionality
-#def -hidden select-prev-word-part %{
-  #exec <a-/>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-#}
-#def -hidden select-next-word-part %{
-  #exec /[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-#}
-#def -hidden extend-prev-word-part %{
-  #exec <a-?>[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-#}
-#def -hidden extend-next-word-part %{
-  #exec ?[A-Z][a-z]+|[A-Z]+|[a-z]+<ret>
-#}
-#map global normal w :select-next-word-part<ret>
-#map global normal W :extend-next-word-part<ret>
+
 # Change grep command
-set global grepcmd 'ag'
+set-option global grepcmd 'ag'
+
+# Copy to clipboard
+map global user y <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
+
+# Comment line
+map global user / :comment-line<ret> -docstring 'comment line'
+
 
 ### UI Stuff ###
-colorscheme tomorrow-night
+colorscheme lucius
 hook global WinCreate .* %{
 # Highlight 81 column
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
@@ -48,17 +69,15 @@ hook global WinCreate .* %{
   add-highlighter window/ number-lines -relative -hlcursor
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
-  # Enable Auto-pairs
   auto-pairs-enable
+  volatile-highlighting-enable
+  search-highlighting-enable
 }
-# Volatile highlighting
-face global volatile +bi
-hook global NormalKey [ydcpP] %{ try %{
-  add-highlighter global/ dynregex \Q%reg{"}\E 0:volatile
-}}
-hook global NormalKey [^ydcpP] %{ try %{
-  remove-highlighter global/dynregex_\Q%reg{"}\E
-}}
+
+# Volatile face
+face global Volatile +bi
+face global Search +bi
+
 # Smart search highlighting
 face global search +bi
 hook global NormalKey [/?*nN]|<a-[/?*nN]> %{ try %{
@@ -71,52 +90,47 @@ hook global NormalKey <esc> %{ try %{
 # Connect to the lsp server
 # %sh{kak-lsp --kakoune -s $kak_session}
 
-# Copy to clipboard
-map global user y <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
-
-# Comment line
-map global user / :comment-line<ret> -docstring 'comment line'
 
 ### Language Specific Stuff ###
 # Javascript
 hook global WinSetOption filetype=ecmascript %{
-  set buffer comment_line '// '
-  set buffer comment_block_begin '/* '
-  set buffer comment_block_end ' */'
-  #set window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
-  set window formatcmd 'prettier --parser flow'
-  set window makecmd 'npm run'
+  set-option buffer comment_line '// '
+  set-option buffer comment_block_begin '/* '
+  set-option buffer comment_block_end ' */'
+  #set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
+  set-option window formatcmd 'prettier --parser flow'
+  set-option window makecmd 'npm run'
   #lint-enable
 }
 
 # Typescript
 hook global WinSetOption filetype=typescript %{
-  set window formatcmd 'prettier'
-  set window makecmd 'npm run'
+  set-option window formatcmd 'prettier'
+  set-option window makecmd 'npm run'
 }
 
 # C & C++
 hook global WinSetOption filetype=cpp %{
-  set clang_options 'std=c++11'
+  set-option clang_options 'std=c++11'
 }
 hook global WinSetOption filetype=c %{
-  set clang_options 'std=c11'
+  set-option clang_options 'std=c11'
 }
 hook global WinSetOption filetype=(c|cpp) %{
 	clang-enable-autocomplete
 	clang-enable-diagnostics
 	clang-parse
-	set window lintcmd 'cpplint'
-	set window formatcmd 'astyle'
+	set-option window lintcmd 'cpplint'
+	set-option window formatcmd 'astyle'
 	lint-enable
 	lint
 }
 
 # Rust
 hook global WinSetOption filetype=rust %{
-  set window formatcmd 'rustfmt'
-  set global tabstop 4
-  set global indentwidth 4
+  set-option window formatcmd 'rustfmt'
+  set-option global tabstop 4
+  set-option global indentwidth 4
 }
 
 # Elixir
@@ -124,12 +138,17 @@ define-command -hidden elixir-deindent-on-end %[
 	try %[ execute-keys -itersel -draft x<a-k>^\h+(end|else)$<ret><lt> ]
 ]
 hook global WinSetOption filetype=elixir %{
-  set window formatcmd 'mix format -'
-  set window makecmd 'mix'
+  set-option window formatcmd 'mix format -'
+  set-option window makecmd 'mix'
   hook window InsertChar d -group elixir-indent elixir-deindent-on-end
 }
 
 # Vue
 hook global WinSetOption filetype=vue %{
-  set window formatcmd 'prettier --parser vue'
+  set-option window formatcmd 'prettier --parser vue'
+}
+
+# Clojure
+hook global WinSetOption filetype=clojure %{
+  set-option window comment_line ';'
 }

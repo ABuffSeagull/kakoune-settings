@@ -1,1 +1,0 @@
-../../kak-plugins/kakoune-buffers/buffers.kak
