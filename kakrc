@@ -5,7 +5,7 @@ set-option global plug_install_dir '~/.cache/kakoune_plugins'
 plug andreyorst/plug.kak
 plug h-youhei/kakoune-surround
 plug alexherbo2/auto-pairs.kak
-plug abuffseagull/kakoune-buffers
+plug delapouite/kakoune-buffers
 plug occivink/kakoune-sudo-write
 plug abuffseagull/kakoune-extra
 plug alexherbo2/volatile-highlighting.kak
@@ -28,7 +28,8 @@ map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (l
 
 ### Indenting ###
 set-option global tabstop 2
-set-option global indentwidth 2
+set-option global indentwidth 0
+set-option global aligntab true
 
 ### UX Stuff ###
 # Mouse Support
