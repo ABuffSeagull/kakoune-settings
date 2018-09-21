@@ -40,7 +40,7 @@ hook global InsertChar h %{ try %{
     exec <esc>
 }}
 # IDE mode or whatever
-def ide %{
+define-command ide %{
   rename-client main
   set-option global jumpclient main
 
@@ -58,11 +58,19 @@ set-option global grepcmd 'ag'
 map global user y <a-|>xclip<space><minus>sel<space>clip<ret> -docstring 'copy to clipboard'
 
 # Comment line
-map global user / :comment-line<ret> -docstring 'comment line'
+map global normal '#' :comment-line<ret> -docstring 'comment line'
+map global normal '<a-#>' :comment-block<ret> -docstring 'comment line'
 
+# Format
+map global normal = :format<ret> -docstring 'format buffer'
+
+unalias global w write
+define-command -docstring 'write and some extras :D' w %{
+	write
+	git update-diff
+}
 
 ### UI Stuff ###
-colorscheme lucius
 hook global WinCreate .* %{
 # Highlight 81 column
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
@@ -73,14 +81,15 @@ hook global WinCreate .* %{
   auto-pairs-enable
   volatile-highlighting-enable
   search-highlighting-enable
+  git show-diff
 }
 
 # Volatile face
-face global Volatile +bi
-face global Search +bi
+set-face global Volatile +bi
+set-face global Search +bi
 
 # Smart search highlighting
-face global search +bi
+set-face global search +bi
 hook global NormalKey [/?*nN]|<a-[/?*nN]> %{ try %{
   add-highlighter global/ dynregex '%reg{/}' 0:search
 }}
