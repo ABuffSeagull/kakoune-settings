@@ -7,11 +7,12 @@ plug h-youhei/kakoune-surround
 plug alexherbo2/auto-pairs.kak
 plug delapouite/kakoune-buffers
 plug occivink/kakoune-sudo-write
-plug abuffseagull/kakoune-extra
+plug lenormf/kakoune-extra
 plug alexherbo2/volatile-highlighting.kak
 plug alexherbo2/search-highlighting.kak
 plug abuffseagull/kakoune-ecmascript
 plug abuffseagull/kakoune-vue
+plug alexherbo2/snippets.kak
 
 # Surround
 declare-user-mode surround
@@ -25,6 +26,9 @@ map global user 's' ':enter-user-mode surround<ret>' -docstring 'surround'
 hook global WinDisplay .* list-buffers
 map global user b ':enter-buffers-mode<ret>'              -docstring 'buffers…'
 map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+
+# Snippets
+source ~/.config/kak/snippets.kak
 
 ### Indenting ###
 set-option global tabstop 2
@@ -67,7 +71,13 @@ map global normal = :format<ret> -docstring 'format buffer'
 unalias global w write
 define-command -docstring 'write and some extras :D' w %{
 	write
-	git update-diff
+	try %{ git update-diff }
+}
+
+map global user f :fzy<space>.<ret> -docstring 'fuzzy search'
+
+define-command haste %{
+	execute-keys Z\%<a-|>haste<space>|<space>xclip<space><minus>sel<space>clip<ret>z
 }
 
 ### UI Stuff ###
@@ -82,6 +92,7 @@ hook global WinCreate .* %{
   volatile-highlighting-enable
   search-highlighting-enable
   git show-diff
+  snippets-enable
 }
 
 # Volatile face
