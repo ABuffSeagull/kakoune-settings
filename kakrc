@@ -1,34 +1,36 @@
 ### Plugins ###
 # Plug
-source '~/.cache/kakoune_plugins/plug.kak/rc/plug.kak'
-set-option global plug_install_dir '~/.cache/kakoune_plugins'
-plug andreyorst/plug.kak
-plug h-youhei/kakoune-surround
-plug alexherbo2/auto-pairs.kak
-plug delapouite/kakoune-buffers
-plug occivink/kakoune-sudo-write
-plug lenormf/kakoune-extra
-plug alexherbo2/volatile-highlighting.kak
-plug alexherbo2/search-highlighting.kak
-plug abuffseagull/kakoune-ecmascript
-plug abuffseagull/kakoune-vue
-plug alexherbo2/snippets.kak
+source "~/.cache/kakoune_plugins/plug.kak/rc/plug.kak"
+set-option global plug_install_dir "$HOME/.cache/kakoune_plugins"
+plug "andreyorst/plug.kak" noload
 
-# Surround
-declare-user-mode surround
-map global surround s ':surround<ret>' -docstring 'surround'
-map global surround c ':change-surround<ret>' -docstring 'change'
-map global surround d ':delete-surround<ret>' -docstring 'delete'
-map global surround t ':select-surrounding-tag<ret>' -docstring 'select tag'
-map global user 's' ':enter-user-mode surround<ret>' -docstring 'surround'
+plug "h-youhei/kakoune-surround" %{
+	declare-user-mode surround
+	map global surround s ':surround<ret>' -docstring 'surround'
+	map global surround c ':change-surround<ret>' -docstring 'change'
+	map global surround d ':delete-surround<ret>' -docstring 'delete'
+	map global surround t ':select-surrounding-tag<ret>' -docstring 'select tag'
+	map global user 's' ':enter-user-mode surround<ret>' -docstring 'surround'
+}
 
-# Buffers
-hook global WinDisplay .* list-buffers
-map global user b ':enter-buffers-mode<ret>'              -docstring 'buffers…'
-map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+plug "delapouite/kakoune-buffers" %{
+	hook global WinDisplay .* list-buffers
+	map global user b ':enter-buffers-mode<ret>'              -docstring 'buffers…'
+	map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
+}
 
-# Snippets
-source ~/.config/kak/snippets.kak
+plug "alexherbo2/snippets.kak"  %{
+  source ~/.config/kak/snippets.kak
+  hook global WinCreate .* snippets-enable
+}
+
+# plug "lenormf/kakoune-extra"
+plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
+plug "occivink/kakoune-sudo-write"
+plug "alexherbo2/volatile-highlighter.kak" %{ hook global WinCreate .* volatile-highlighter-enable }
+plug "alexherbo2/search-highlighter.kak" %{ hook global WinCreate .* search-highlighter-enable }
+plug "abuffseagull/kakoune-ecmascript"
+plug "abuffseagull/kakoune-vue"
 
 ### Indenting ###
 set-option global tabstop 2
@@ -88,11 +90,7 @@ hook global WinCreate .* %{
   add-highlighter window/ number-lines -relative -hlcursor
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
-  auto-pairs-enable
-  volatile-highlighting-enable
-  search-highlighting-enable
   git show-diff
-  snippets-enable
 }
 
 # Volatile face
