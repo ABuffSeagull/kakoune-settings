@@ -1,5 +1,4 @@
 ### Plugins ###
-# Plug
 source "~/.cache/kakoune_plugins/plug.kak/rc/plug.kak"
 set-option global plug_install_dir "$HOME/.cache/kakoune_plugins"
 plug "andreyorst/plug.kak" noload
@@ -24,7 +23,9 @@ plug "alexherbo2/snippets.kak"  %{
   hook global WinCreate .* snippets-enable
 }
 
-# plug "lenormf/kakoune-extra"
+plug "lenormf/kakoune-extra" %{
+	map global user f :fzy<space>.<ret> -docstring 'fuzzy search'
+}
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "alexherbo2/volatile-highlighter.kak" %{ hook global WinCreate .* volatile-highlighter-enable }
@@ -75,8 +76,6 @@ define-command -docstring 'write and some extras :D' w %{
 	write
 	try %{ git update-diff }
 }
-
-map global user f :fzy<space>.<ret> -docstring 'fuzzy search'
 
 define-command haste %{
 	execute-keys Z\%<a-|>haste<space>|<space>xclip<space><minus>sel<space>clip<ret>z
