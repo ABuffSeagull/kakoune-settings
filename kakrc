@@ -3,9 +3,14 @@ source "~/.cache/kakoune_plugins/plug.kak/rc/plug.kak"
 set-option global plug_install_dir "$HOME/.cache/kakoune_plugins"
 plug "andreyorst/plug.kak" noload
 
+plug "ul/kak-lsp" noload do %{cargo build --release} %{
+	eval %sh{kak-lsp --kakoune -s $kak_session}
+	set-option global lsp_hover_anchor true
+}
+
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
-	map global surround s ':surround<ret>' -docstring 'surround'
+	map global surround s ':surround<ret>' -docstring 'surround…'
 	map global surround c ':change-surround<ret>' -docstring 'change'
 	map global surround d ':delete-surround<ret>' -docstring 'delete'
 	map global surround t ':select-surrounding-tag<ret>' -docstring 'select tag'
@@ -13,25 +18,27 @@ plug "h-youhei/kakoune-surround" %{
 }
 
 plug "delapouite/kakoune-buffers" %{
-	hook global WinDisplay .* list-buffers
+	hook global WinDisplay .* info-buffers
 	map global user b ':enter-buffers-mode<ret>'              -docstring 'buffers…'
 	map global user B ':enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
 }
 
-plug "alexherbo2/snippets.kak"  %{
-  source ~/.config/kak/snippets.kak
-  hook global WinCreate .* snippets-enable
+plug "JJK96/kakoune-snippets" %{
+	map global insert <a-E> '<esc>;h:snippet-word<ret>'
+	map global insert <a-e> '<esc>:replace-next-hole<ret>'
 }
 
-plug "lenormf/kakoune-extra" %{
-	map global user f :fzy<space>.<ret> -docstring 'fuzzy search'
-}
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "alexherbo2/volatile-highlighter.kak" %{ hook global WinCreate .* volatile-highlighter-enable }
-plug "alexherbo2/search-highlighter.kak" %{ hook global WinCreate .* search-highlighter-enable }
-plug "abuffseagull/kakoune-ecmascript"
+plug "abuffseagull/search-highlighter.kak" %{ hook global WinCreate .* search-highlighter-enable }
 plug "abuffseagull/kakoune-vue"
+plug "delapouite/kakoune-auto-percent"
+plug andreyorst/fzf.kak %{
+	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
+	set-option global fzf_file_command 'fd'
+	set-option global fzf_highlighter 'bat'
+}
 
 ### Indenting ###
 set-option global tabstop 2
@@ -105,26 +112,31 @@ hook global NormalKey <esc> %{ try %{
   remove-highlighter global/dynregex_%reg{<slash>}
 }}
 
-# Connect to the lsp server
-# %sh{kak-lsp --kakoune -s $kak_session}
-
-
 ### Language Specific Stuff ###
 # Javascript
-hook global WinSetOption filetype=ecmascript %{
-  set-option buffer comment_line '// '
-  set-option buffer comment_block_begin '/* '
-  set-option buffer comment_block_end ' */'
-  #set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
-  set-option window formatcmd 'prettier --parser flow'
-  set-option window makecmd 'npm run'
-  #lint-enable
+# hook global WinSetOption filetype=ecmascript %{
+#   set-option buffer comment_line '// '
+#   set-option buffer comment_block_begin '/* '
+#   set-option buffer comment_block_end ' */'
+#   #set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
+#   set-option window formatcmd 'prettier'
+#   set-option window makecmd 'npm run'
+#   #lint-enable
+# }
+hook global WinSetOption filetype=javascript %{
+	set-option window formatcmd 'prettier --parser=flow'
+	set-option window makecmd 'yarn run'
 }
 
 # Typescript
 hook global WinSetOption filetype=typescript %{
   set-option window formatcmd 'prettier'
   set-option window makecmd 'npm run'
+}
+
+# JSON
+hook global WinSetOption filetype=json %{
+	set-option window formatcmd 'prettier --parser=json'
 }
 
 # C & C++
@@ -135,13 +147,13 @@ hook global WinSetOption filetype=c %{
   set-option clang_options 'std=c11'
 }
 hook global WinSetOption filetype=(c|cpp) %{
-	clang-enable-autocomplete
-	clang-enable-diagnostics
-	clang-parse
+  # clang-enable-autocomplete
+	# clang-enable-diagnostics
+	# clang-parse
 	set-option window lintcmd 'cpplint'
 	set-option window formatcmd 'astyle'
-	lint-enable
-	lint
+	# lint-enable
+	# lint
 }
 
 # Rust
@@ -169,4 +181,9 @@ hook global WinSetOption filetype=vue %{
 # Clojure
 hook global WinSetOption filetype=clojure %{
   set-option window comment_line ';'
+}
+
+# Python
+hook global WinSetOption filetype=python %{
+	set-option window formatcmd 'yapf'
 }

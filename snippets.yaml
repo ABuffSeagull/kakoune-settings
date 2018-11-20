@@ -1,0 +1,35 @@
+scaffold: |
+  <template>
+    $0
+  </template>
+
+  <script>
+  export default {
+
+  }
+  </script>
+
+  <style>
+
+  </style>
+
+newform: |
+  <template>
+    <v-form ref="form" @submit="submit">
+      $0
+      <v-btn @click="$router.go(-1)">Back</v-btn>
+      <v-btn type="submit">Continue</v-btn>
+    </v-form>
+  </template>
+
+  <script>
+  export default {
+    methods: {
+      async submit() {
+        if (!this.refs.form.validate()) return;
+      }
+    }
+  }
+  </script>
+
+theme: ${props => props.theme.$0}
