@@ -28,17 +28,25 @@ plug "JJK96/kakoune-snippets" %{
 	map global insert <a-e> '<esc>:replace-next-hole<ret>'
 }
 
-plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
-plug "occivink/kakoune-sudo-write"
-plug "alexherbo2/volatile-highlighter.kak" %{ hook global WinCreate .* volatile-highlighter-enable }
-plug "abuffseagull/search-highlighter.kak" %{ hook global WinCreate .* search-highlighter-enable }
-plug "abuffseagull/kakoune-vue"
-plug "delapouite/kakoune-auto-percent"
 plug andreyorst/fzf.kak %{
 	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
 	set-option global fzf_file_command 'fd'
 	set-option global fzf_highlighter 'bat'
 }
+
+plug "alexherbo2/volatile-highlighter.kak" %{
+	hook global WinCreate .* volatile-highlighter-enable
+	set-face global Volatile +bi
+}
+plug "alexherbo2/search-highlighter.kak" %{
+	hook global WinCreate .* search-highlighter-enable
+	set-face global Search +bi
+}
+
+plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
+plug "occivink/kakoune-sudo-write"
+plug "abuffseagull/kakoune-vue"
+plug "delapouite/kakoune-auto-percent"
 
 ### Indenting ###
 set-option global tabstop 2
@@ -99,30 +107,8 @@ hook global WinCreate .* %{
   git show-diff
 }
 
-# Volatile face
-set-face global Volatile +bi
-set-face global Search +bi
-
-# Smart search highlighting
-set-face global search +bi
-hook global NormalKey [/?*nN]|<a-[/?*nN]> %{ try %{
-  add-highlighter global/ dynregex '%reg{/}' 0:search
-}}
-hook global NormalKey <esc> %{ try %{
-  remove-highlighter global/dynregex_%reg{<slash>}
-}}
-
 ### Language Specific Stuff ###
 # Javascript
-# hook global WinSetOption filetype=ecmascript %{
-#   set-option buffer comment_line '// '
-#   set-option buffer comment_block_begin '/* '
-#   set-option buffer comment_block_end ' */'
-#   #set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.json --format=node_modules/eslint-formatter-kakoune'
-#   set-option window formatcmd 'prettier'
-#   set-option window makecmd 'npm run'
-#   #lint-enable
-# }
 hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn run'
