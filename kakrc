@@ -46,16 +46,17 @@ plug "alexherbo2/search-highlighter.kak" %{
 # plug "eraserhd/parinfer-rust" do %{
 #     cargo build --release
 #     cargo install
-# }
+
+plug "abuffseagull/kakoune-toggler" do %{make} %{
+	map global user t ': toggle-word<ret>' -docstring 'toggle word'
+	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
+}
 
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
-plug "abuffseagull/kakoune-toggler" do %{make} %{
-	map global user t ': toggle-word<ret>' -docstring 'toggle word'
-	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
-}
+plug "nkoehring/kakoune-todo.txt"
 # plug "Delapouite/kakoune-livedown"
 
 ### Indenting ###
@@ -97,10 +98,14 @@ map global normal '<a-#>' ': comment-block<ret>' -docstring 'comment line'
 map global normal = ': format<ret>' -docstring 'format buffer'
 
 # Add some stuff to write
-hook global BufWritePost .* %{ try %{
+hook global BufWritePost .* %{
 	git update-diff
-	lint
-}}
+	eval %sh{
+		if [[ "$kak_opt_lintcmd" ]]; then
+			echo 'lint'
+		fi
+	}
+}
 
 define-command haste %{
 	execute-keys Z\%<a-|>haste<space>|<space>xclip<space><minus>sel<space>clip<ret>z
@@ -158,7 +163,7 @@ hook global WinSetOption filetype=(c|cpp) %{
 	clang-parse
 	set-option window lintcmd 'cpplint'
 	set-option window formatcmd 'astyle'
-	set-option window makecmd 'ninja -C build'
+	# set-option window makecmd 'ninja -C build'
 	lint-enable
 	lint
 }
