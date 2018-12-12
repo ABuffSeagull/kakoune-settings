@@ -33,3 +33,30 @@ newform: |
   </script>
 
 theme: ${props => props.theme.$0}
+
+newtest: |
+  import faker from 'faker';
+
+  describe('$0 form', () => {
+    beforeEach(() => {
+      cy.visit('$1');
+    });
+
+    it('should $2', () => {
+     $3
+    })
+  });
+
+it: |
+  it('should $0', () => {
+    $1
+  });
+
+datatype: cy.get('[data-cy=$0]').type(faker.$1);
+
+test: |
+  test('should $0', () => {
+    $1
+  });
+
+wrap: const wrapper = shallow(<$1 />);
