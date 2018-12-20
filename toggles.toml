@@ -1,0 +1,25 @@
+[global]
+toggles = [
+	["true", "false"],
+	["begin", "end"],
+	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+	["0", "1"],
+	["if", "else"],
+	["on", "off"],
+	["yes", "no"],
+	["==", "!="],
+]
+
+[javascript]
+toggles = [
+	["window", "document"],
+	["const", "let", "var"],
+	["===", "!=="],
+	["setInterval", "setTimeout"],
+]
+
+[vue]
+extends = ["javascript"]
+toggles = [
+	["v-if", "v-show"],
+]
