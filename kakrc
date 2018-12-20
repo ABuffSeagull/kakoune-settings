@@ -52,6 +52,10 @@ plug "abuffseagull/kakoune-toggler" do %{make} %{
 	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
 }
 
+plug "andreyorst/smarttab.kak" %{
+	set-option global softtabstop 2
+}
+
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
@@ -61,7 +65,7 @@ plug "nkoehring/kakoune-todo.txt"
 
 ### Indenting ###
 set-option global tabstop 2
-set-option global indentwidth 0
+set-option global indentwidth 2
 set-option global aligntab true
 
 ### UX Stuff ###
@@ -122,6 +126,7 @@ hook global WinCreate .* %{
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
   git show-diff
+  smarttab
 }
 
 ### Language Specific Stuff ###
@@ -130,6 +135,7 @@ hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn --silent run'
 	set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.js --format=node_modules/eslint-formatter-kakoune'
+	expandtab
 	lint-enable
 	lint
 }
@@ -189,6 +195,10 @@ hook global WinSetOption filetype=elixir %{
 hook global WinSetOption filetype=vue %{
   set-option window formatcmd 'prettier --parser vue'
   set-option window makecmd 'yarn'
+	set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.js --format=node_modules/eslint-formatter-kakoune'
+	expandtab
+	lint-enable
+	lint
 }
 
 # Clojure
