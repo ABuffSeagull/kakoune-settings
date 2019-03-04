@@ -3,10 +3,9 @@ source "~/.cache/kakoune_plugins/plug.kak/rc/plug.kak"
 set-option global plug_install_dir "/home/abuffseagull/.cache/kakoune_plugins"
 plug "andreyorst/plug.kak" noload
 
-plug "ul/kak-lsp" "tag: v5.10.0" noload do %{cargo build --release} %{
-	eval %sh{kak-lsp --kakoune -s $kak_session}
-	set-option global lsp_hover_anchor true
-}
+# kak-lsp
+eval %sh{kak-lsp --kakoune -s $kak_session}
+set-option global lsp_hover_anchor true
 
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
@@ -43,10 +42,6 @@ plug "alexherbo2/search-highlighter.kak" %{
 	set-face global Search +b
 }
 
-# plug "eraserhd/parinfer-rust" do %{
-#     cargo build --release
-#     cargo install
-
 plug "abuffseagull/kakoune-toggler" do %{make} %{
 	map global user t ': toggle-word<ret>' -docstring 'toggle word'
 	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
@@ -60,7 +55,8 @@ plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
-plug "nkoehring/kakoune-todo.txt"
+plug "eraserhd/kak-ansi"
+# plug "nkoehring/kakoune-todo.txt"
 # plug "Delapouite/kakoune-livedown"
 
 ### Indenting ###
@@ -118,11 +114,12 @@ define-command haste %{
 set-option global autoreload yes
 
 ### UI Stuff ###
+colorscheme lucius
 hook global WinCreate .* %{
 # Highlight 81 column
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
   # Number the lines
-  add-highlighter window/ number-lines -relative -hlcursor
+  add-highlighter window/ number-lines -hlcursor
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
   git show-diff
@@ -134,7 +131,7 @@ hook global WinCreate .* %{
 hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn --silent run'
-	set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.js --format=node_modules/eslint-formatter-kakoune'
+	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
 	expandtab
 	lint-enable
 	lint
@@ -144,6 +141,20 @@ hook global WinSetOption filetype=javascript %{
 hook global WinSetOption filetype=typescript %{
   set-option window formatcmd 'prettier'
   set-option window makecmd 'npm run'
+	set-option window lintcmd 'yarn --silent run tslint --formatters-dir node_modules/tslint-formatter-kakoune -t kakoune --config tslint.json'
+	expandtab
+	lint-enable
+	lint
+}
+
+# Vue
+hook global WinSetOption filetype=vue %{
+  set-option window formatcmd 'prettier --parser vue'
+  set-option window makecmd 'yarn'
+	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
+	expandtab
+	lint-enable
+	lint
 }
 
 # JSON
@@ -164,21 +175,24 @@ hook global WinSetOption filetype=c %{
   set-option clang_options 'std=c11'
 }
 hook global WinSetOption filetype=(c|cpp) %{
-  clang-enable-autocomplete
-	clang-enable-diagnostics
-	clang-parse
-	set-option window lintcmd 'cpplint'
+ #  clang-enable-autocomplete
+	# clang-enable-diagnostics
+	# clang-parse
+	# set-option window lintcmd 'cpplint'
 	set-option window formatcmd 'astyle'
 	# set-option window makecmd 'ninja -C build'
-	lint-enable
-	lint
+	# lint-enable
+	# lint
 }
 
 # Rust
 hook global WinSetOption filetype=rust %{
   set-option window formatcmd 'rustfmt'
+  set-option window makecmd 'cargo'
   set-option global tabstop 4
   set-option global indentwidth 4
+  expandtab
+  lsp-enable
 }
 
 # Elixir
@@ -189,24 +203,24 @@ hook global WinSetOption filetype=elixir %{
   set-option window formatcmd 'mix format -'
   set-option window makecmd 'mix'
   hook window InsertChar d -group elixir-indent elixir-deindent-on-end
-}
-
-# Vue
-hook global WinSetOption filetype=vue %{
-  set-option window formatcmd 'prettier --parser vue'
-  set-option window makecmd 'yarn'
-	set-option window lintcmd 'yarn --silent run eslint --config .eslintrc.js --format=node_modules/eslint-formatter-kakoune'
-	expandtab
-	lint-enable
-	lint
+  # lsp-enable
 }
 
 # Clojure
 hook global WinSetOption filetype=clojure %{
   set-option window comment_line ';'
+  define-command lein-repl %{tmux-terminal-vertical lein repl}
+  smarttab
 }
 
 # Python
 hook global WinSetOption filetype=python %{
 	set-option window formatcmd 'yapf'
+  set-option global tabstop 4
+  set-option global indentwidth 4
+	expandtab
+}
+
+hook global WinSetOption filetype=yaml %{
+	expandtab
 }

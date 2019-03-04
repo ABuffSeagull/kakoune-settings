@@ -15,7 +15,7 @@ scaffold: |
 
 newform: |
   <template>
-    <v-form ref="form" @submit="submit">
+    <v-form ref="form" @submit.prevent="submit">
       $0
       <v-btn @click="$router.go(-1)">Back</v-btn>
       <v-btn type="submit">Continue</v-btn>
@@ -26,7 +26,7 @@ newform: |
   export default {
     methods: {
       async submit() {
-        if (!this.refs.form.validate()) return;
+        if (!this.$refs.form.validate()) return;
       }
     }
   }
@@ -60,3 +60,8 @@ test: |
   });
 
 wrap: const wrapper = shallow(<$1 />);
+
+data: |
+  data: () => ({
+    $0
+  }),
