@@ -1,6 +1,5 @@
 ### Plugins ###
-source "~/.cache/kakoune_plugins/plug.kak/rc/plug.kak"
-set-option global plug_install_dir "/home/abuffseagull/.cache/kakoune_plugins"
+source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
 
 # kak-lsp
@@ -119,7 +118,7 @@ hook global WinCreate .* %{
 # Highlight 81 column
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
   # Number the lines
-  add-highlighter window/ number-lines -hlcursor
+  add-highlighter window/ number-lines -hlcursor -relative
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
   git show-diff
@@ -191,6 +190,7 @@ hook global WinSetOption filetype=rust %{
   set-option window makecmd 'cargo'
   set-option global tabstop 4
   set-option global indentwidth 4
+  set-option global softtab 4
   expandtab
   lsp-enable
 }
