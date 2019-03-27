@@ -6,7 +6,7 @@ scaffold: |
   <script>
   export default {
 
-  }
+  };
   </script>
 
   <style>
