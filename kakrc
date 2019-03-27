@@ -131,6 +131,8 @@ hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn --silent run'
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
+  define-command lang-repl %{tmux-terminal-vertical node}
+  set-option global softtab 2
 	expandtab
 	lint-enable
 	lint
@@ -141,6 +143,7 @@ hook global WinSetOption filetype=typescript %{
   set-option window formatcmd 'prettier'
   set-option window makecmd 'npm run'
 	set-option window lintcmd 'yarn --silent run tslint --formatters-dir node_modules/tslint-formatter-kakoune -t kakoune --config tslint.json'
+  define-command lang-repl %{tmux-terminal-vertical node}
 	expandtab
 	lint-enable
 	lint
@@ -151,6 +154,7 @@ hook global WinSetOption filetype=vue %{
   set-option window formatcmd 'prettier --parser vue'
   set-option window makecmd 'yarn'
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
+  define-command lang-repl %{tmux-terminal-vertical node}
 	expandtab
 	lint-enable
 	lint
@@ -209,7 +213,7 @@ hook global WinSetOption filetype=elixir %{
 # Clojure
 hook global WinSetOption filetype=clojure %{
   set-option window comment_line ';'
-  define-command lein-repl %{tmux-terminal-vertical lein repl}
+  define-command lang-repl %{tmux-terminal-vertical lein repl}
   smarttab
 }
 
