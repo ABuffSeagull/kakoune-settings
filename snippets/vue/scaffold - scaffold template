@@ -1,0 +1,15 @@
+<template>
+  $1
+</template>
+
+<script>
+export default {
+	data: () => ({
+	 $2
+	}),
+};
+</script>
+
+<style>
+
+</style>

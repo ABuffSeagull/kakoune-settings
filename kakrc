@@ -21,9 +21,12 @@ plug "delapouite/kakoune-buffers" %{
 	map global user B ': enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
 }
 
-plug "JJK96/kakoune-snippets" %{
-	map global insert <a-E> '<esc>;h: snippet-word<ret>'
-	map global insert <a-e> '<esc>: replace-next-hole<ret>'
+# plug "JJK96/kakoune-snippets" %{
+# 	map global insert <a-E> '<esc>;h: snippet-word<ret>'
+# 	map global insert <a-e> '<esc>: replace-next-hole<ret>'
+# }
+plug "occivink/kakoune-snippets" %{
+	set-option global snippets_auto_expand true
 }
 
 plug "andreyorst/fzf.kak" %{
