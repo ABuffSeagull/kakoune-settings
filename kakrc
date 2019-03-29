@@ -15,6 +15,11 @@ plug "h-youhei/kakoune-surround" %{
 	map global user 's' ': enter-user-mode surround<ret>' -docstring 'surround'
 }
 
+# plug "eraserhd/parinfer-rust" do %{
+#   cargo build --release
+#   cargo install
+# }
+
 plug "delapouite/kakoune-buffers" %{
 	hook global WinDisplay .* info-buffers
 	map global user b ': enter-buffers-mode<ret>'              -docstring 'buffers…'
@@ -214,18 +219,21 @@ hook global WinSetOption filetype=elixir %{
 }
 
 # Clojure
-hook global WinSetOption filetype=clojure %{
-  set-option window comment_line ';'
-  define-command lang-repl %{tmux-terminal-vertical lein repl}
-  smarttab
+hook global BufSetOption filetype=clojure %{
+  set-option buffer comment_line ';'
+  define-command -override lang-repl %{tmux-terminal-vertical lein repl}
+  set-option buffer tabstop 1
+  set-option buffer indentwidth 1
+	set-option global softtabstop 1
+  expandtab
 }
 
 # Python
 hook global WinSetOption filetype=python %{
-	set-option window formatcmd 'yapf'
+  set-option window formatcmd 'yapf'
   set-option global tabstop 4
   set-option global indentwidth 4
-	expandtab
+  expandtab
 }
 
 hook global WinSetOption filetype=yaml %{
