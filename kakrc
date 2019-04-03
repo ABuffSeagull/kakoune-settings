@@ -58,6 +58,8 @@ plug "andreyorst/smarttab.kak" %{
 	set-option global softtabstop 2
 }
 
+plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force }
+
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
