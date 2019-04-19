@@ -15,10 +15,7 @@ plug "h-youhei/kakoune-surround" %{
 	map global user 's' ': enter-user-mode surround<ret>' -docstring 'surround'
 }
 
-# plug "eraserhd/parinfer-rust" do %{
-#   cargo build --release
-#   cargo install
-# }
+plug "eraserhd/parinfer-rust" do %{ cargo install --path . --force }
 
 plug "delapouite/kakoune-buffers" %{
 	hook global WinDisplay .* info-buffers
@@ -32,12 +29,13 @@ plug "delapouite/kakoune-buffers" %{
 # }
 plug "occivink/kakoune-snippets" %{
 	set-option global snippets_auto_expand true
+	map global insert <a-E> '<a-;>: snippets-select-next-placeholders<ret>'
 }
 
-plug "andreyorst/fzf.kak" %{
+plug "andreyorst/fzf.kak" depth-sort %{
 	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
 	set-option global fzf_file_command 'fd'
-	set-option global fzf_highlighter 'bat'
+	set-option global fzf_highlight_cmd 'bat'
 }
 
 plug "alexherbo2/volatile-highlighter.kak" %{
@@ -58,7 +56,18 @@ plug "andreyorst/smarttab.kak" %{
 	set-option global softtabstop 2
 }
 
-plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force }
+plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force } %{
+	discord-presence-enable
+}
+
+plug "lenormf/kakoune-extra" load %{
+	tldr.kak
+	grepmenu.kak
+	intfiletype/git.kak
+	autosplit.kak
+	hatch_terminal.kak
+	idsession.kak
+}
 
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
@@ -67,6 +76,13 @@ plug "delapouite/kakoune-auto-percent"
 plug "eraserhd/kak-ansi"
 # plug "nkoehring/kakoune-todo.txt"
 # plug "Delapouite/kakoune-livedown"
+
+plug "delapouite/kakoune-colors" theme load %{
+	gotham.kak
+	seagull.kak
+} config %{ colorscheme gotham }
+
+plug "alexherbo2/kakoune-dracula-theme" theme
 
 ### Indenting ###
 set-option global tabstop 2
@@ -82,16 +98,16 @@ hook global InsertChar h %{ try %{
     exec <esc>
 }}
 # IDE mode or whatever
-define-command ide %{
-  rename-client main
-  set-option global jumpclient main
+# define-command ide %{
+#   rename-client main
+#   set-option global jumpclient main
 
-  new rename-client tools
-  set-option global toolsclient tools
+#   new rename-client tools
+#   set-option global toolsclient tools
 
-  tmux-new-vertical rename-client docs
-  set-option global docsclient docs
-}
+#   tmux-new-vertical rename-client docs
+#   set-option global docsclient docs
+# }
 
 # Change grep command
 set-option global grepcmd 'ag'
@@ -123,7 +139,7 @@ define-command haste %{
 set-option global autoreload yes
 
 ### UI Stuff ###
-colorscheme lucius
+# colorscheme lucius
 hook global WinCreate .* %{
 # Highlight 81 column
   #add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
@@ -141,8 +157,8 @@ hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn --silent run'
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
-  define-command lang-repl %{tmux-terminal-vertical node}
-  set-option global softtab 2
+	define-command -override lang-repl %{tmux-terminal-vertical node}
+	set-option global softtabstop 2
 	expandtab
 	lint-enable
 	lint
@@ -150,10 +166,10 @@ hook global WinSetOption filetype=javascript %{
 
 # Typescript
 hook global WinSetOption filetype=typescript %{
-  set-option window formatcmd 'prettier'
+  set-option window formatcmd 'prettier --parser typescript'
   set-option window makecmd 'npm run'
 	set-option window lintcmd 'yarn --silent run tslint --formatters-dir node_modules/tslint-formatter-kakoune -t kakoune --config tslint.json'
-  define-command lang-repl %{tmux-terminal-vertical node}
+  define-command -override lang-repl %{tmux-terminal-vertical node}
 	expandtab
 	lint-enable
 	lint
@@ -164,10 +180,14 @@ hook global WinSetOption filetype=vue %{
   set-option window formatcmd 'prettier --parser vue'
   set-option window makecmd 'yarn'
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
-  define-command lang-repl %{tmux-terminal-vertical node}
+  define-command -override lang-repl %{tmux-terminal-vertical node}
 	expandtab
 	lint-enable
 	lint
+}
+
+hook global WinSetOption filetype=html %{
+	set-option window formatcmd 'prettier --parser html'
 }
 
 # JSON
@@ -204,7 +224,7 @@ hook global WinSetOption filetype=rust %{
   set-option window makecmd 'cargo'
   set-option global tabstop 4
   set-option global indentwidth 4
-  set-option global softtab 4
+  set-option global softtabstop 4
   expandtab
   lsp-enable
 }
@@ -224,9 +244,9 @@ hook global WinSetOption filetype=elixir %{
 hook global BufSetOption filetype=clojure %{
   set-option buffer comment_line ';'
   define-command -override lang-repl %{tmux-terminal-vertical lein repl}
-  set-option buffer tabstop 1
-  set-option buffer indentwidth 1
-	set-option global softtabstop 1
+  set-option buffer tabstop 3
+  set-option buffer indentwidth 3
+  set-option buffer softtabstop 3
   expandtab
 }
 
