@@ -22,6 +22,7 @@ toggles = [
 	["const", "let", "var"],
 	["===", "!=="],
 	["setInterval", "setTimeout"],
+	["in", "of"],
 ]
 
 [vue]
