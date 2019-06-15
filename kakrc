@@ -23,16 +23,12 @@ plug "delapouite/kakoune-buffers" %{
 	map global user B ': enter-user-mode -lock buffers<ret>'   -docstring 'buffers (lock)…'
 }
 
-# plug "JJK96/kakoune-snippets" %{
-# 	map global insert <a-E> '<esc>;h: snippet-word<ret>'
-# 	map global insert <a-e> '<esc>: replace-next-hole<ret>'
-# }
 plug "occivink/kakoune-snippets" %{
 	set-option global snippets_auto_expand true
 	map global insert <a-E> '<a-;>: snippets-select-next-placeholders<ret>'
 }
 
-plug "andreyorst/fzf.kak" depth-sort %{
+plug "andreyorst/fzf.kak" tag "v1.0.1" depth-sort %{
 	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
 	set-option global fzf_file_command 'fd'
 	set-option global fzf_highlight_cmd 'bat'
@@ -77,12 +73,17 @@ plug "eraserhd/kak-ansi"
 # plug "nkoehring/kakoune-todo.txt"
 # plug "Delapouite/kakoune-livedown"
 
-plug "delapouite/kakoune-colors" theme load %{
-	gotham.kak
-	seagull.kak
-} config %{ colorscheme gotham }
+# plug "delapouite/kakoune-colors" theme load %{
+# 	gotham.kak
+# 	seagull.kak
+# } config %{ colorscheme gotham }
 
+plug "abuffseagull/nord.kak" theme %{ colorscheme nord }
+
+# colorscheme nord
 plug "alexherbo2/kakoune-dracula-theme" theme
+
+plug "vurich/zig-kak"
 
 ### Indenting ###
 set-option global tabstop 2
@@ -226,7 +227,7 @@ hook global WinSetOption filetype=rust %{
   set-option global indentwidth 4
   set-option global softtabstop 4
   expandtab
-  lsp-enable
+  # lsp-enable
 }
 
 # Elixir
@@ -244,20 +245,32 @@ hook global WinSetOption filetype=elixir %{
 hook global BufSetOption filetype=clojure %{
   set-option buffer comment_line ';'
   define-command -override lang-repl %{tmux-terminal-vertical lein repl}
-  set-option buffer tabstop 3
-  set-option buffer indentwidth 3
-  set-option buffer softtabstop 3
+  # set-option buffer tabstop 3
+  # set-option buffer indentwidth 3
+  # set-option buffer softtabstop 3
   expandtab
 }
 
 # Python
-hook global WinSetOption filetype=python %{
-  set-option window formatcmd 'yapf'
-  set-option global tabstop 4
-  set-option global indentwidth 4
+hook global BufSetOption filetype=python %{
+  set-option buffer formatcmd 'yapf'
+  set-option buffer tabstop 4
+  set-option buffer indentwidth 4
   expandtab
 }
 
 hook global WinSetOption filetype=yaml %{
+	expandtab
+}
+
+hook global BufSetOption filetype=scss %{
+	set-option buffer formatcmd 'prettier --parser scss'
+}
+
+hook global BufSetOption filetype=java %{
+	set-option buffer formatcmd 'astyle'
+}
+
+hook global BufSetOption filetype=zig %{
 	expandtab
 }
