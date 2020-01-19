@@ -28,10 +28,11 @@ plug "occivink/kakoune-snippets" %{
 	map global insert <a-E> '<a-;>: snippets-select-next-placeholders<ret>'
 }
 
-plug "andreyorst/fzf.kak" tag "v1.0.1" depth-sort %{
+plug "andreyorst/fzf.kak" config %{
 	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
+} defer "fzf" %{
 	set-option global fzf_file_command 'fd'
-	set-option global fzf_highlight_cmd 'bat'
+	set-option global fzf_highlight_command 'bat'
 }
 
 plug "alexherbo2/volatile-highlighter.kak" %{
@@ -48,8 +49,11 @@ plug "abuffseagull/kakoune-toggler" do %{make} %{
 	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
 }
 
-plug "andreyorst/smarttab.kak" %{
+plug "andreyorst/smarttab.kak" defer smarttab %{
 	set-option global softtabstop 2
+} config %{
+	hook global WinSetOption filetype=(javascript|typescript|vue|rust|elixir|clojure|python|yaml|dart) expandtab
+	hook global WinSetOption filetype=(c|cpp|zip) smarttab
 }
 
 plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force } %{
@@ -125,11 +129,15 @@ map global normal = ': format<ret>' -docstring 'format buffer'
 
 # Add some stuff to write
 hook global BufWritePost .* %{
-	git update-diff
 	eval %sh{
+		out=""
 		if [[ "$kak_opt_lintcmd" ]]; then
-			echo 'lint'
+			out="lint"
 		fi
+		if [[ -d ".git" ]]; then
+			out="$out;git update-diff"
+		fi
+		echo $out
 	}
 }
 
@@ -148,8 +156,11 @@ hook global WinCreate .* %{
   add-highlighter window/ number-lines -hlcursor -relative
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
-  git show-diff
-  smarttab
+  eval %sh{
+		if [[ -d ".git" ]]; then
+			echo "git show-diff"
+		fi
+  }
 }
 
 ### Language Specific Stuff ###
@@ -160,7 +171,6 @@ hook global WinSetOption filetype=javascript %{
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
 	define-command -override lang-repl %{tmux-terminal-vertical node}
 	set-option global softtabstop 2
-	expandtab
 	lint-enable
 	lint
 }
@@ -171,7 +181,6 @@ hook global WinSetOption filetype=typescript %{
   set-option window makecmd 'npm run'
 	set-option window lintcmd 'yarn --silent run tslint --formatters-dir node_modules/tslint-formatter-kakoune -t kakoune --config tslint.json'
   define-command -override lang-repl %{tmux-terminal-vertical node}
-	expandtab
 	lint-enable
 	lint
 }
@@ -182,7 +191,6 @@ hook global WinSetOption filetype=vue %{
   set-option window makecmd 'yarn'
 	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
   define-command -override lang-repl %{tmux-terminal-vertical node}
-	expandtab
 	lint-enable
 	lint
 }
@@ -226,7 +234,6 @@ hook global WinSetOption filetype=rust %{
   set-option global tabstop 4
   set-option global indentwidth 4
   set-option global softtabstop 4
-  expandtab
   # lsp-enable
 }
 
@@ -244,11 +251,11 @@ hook global WinSetOption filetype=elixir %{
 # Clojure
 hook global BufSetOption filetype=clojure %{
   set-option buffer comment_line ';'
-  define-command -override lang-repl %{tmux-terminal-vertical lein repl}
-  # set-option buffer tabstop 3
-  # set-option buffer indentwidth 3
-  # set-option buffer softtabstop 3
-  expandtab
+  # define-command -override lang-repl %{tmux-terminal-vertical lein repl}
+  set-option buffer tabstop 1
+  set-option buffer indentwidth 1
+  set-option buffer softtabstop 1
+  parinfer-enable-window -indent
 }
 
 # Python
@@ -256,11 +263,9 @@ hook global BufSetOption filetype=python %{
   set-option buffer formatcmd 'yapf'
   set-option buffer tabstop 4
   set-option buffer indentwidth 4
-  expandtab
 }
 
 hook global WinSetOption filetype=yaml %{
-	expandtab
 }
 
 hook global BufSetOption filetype=scss %{
@@ -272,5 +277,8 @@ hook global BufSetOption filetype=java %{
 }
 
 hook global BufSetOption filetype=zig %{
-	expandtab
+}
+
+hook global BufSetOption filetype=dart %{
+	set-option buff formatcmd 'dartfmt'
 }
