@@ -74,18 +74,8 @@ plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
 plug "eraserhd/kak-ansi"
-# plug "nkoehring/kakoune-todo.txt"
-# plug "Delapouite/kakoune-livedown"
-
-# plug "delapouite/kakoune-colors" theme load %{
-# 	gotham.kak
-# 	seagull.kak
-# } config %{ colorscheme gotham }
 
 plug "abuffseagull/nord.kak" theme %{ colorscheme nord }
-
-# colorscheme nord
-plug "alexherbo2/kakoune-dracula-theme" theme
 
 plug "vurich/zig-kak"
 
