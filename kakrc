@@ -173,7 +173,7 @@ hook global WinCreate .* %{
 hook global WinSetOption filetype=javascript %{
 	set-option window formatcmd 'prettier --parser=flow'
 	set-option window makecmd 'yarn --silent run'
-	set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
+	set-option window lintcmd 'run() { cat "$1" | yarn --silent run eslint -f ~/.config/yarn/global/node_modules/eslint-formatter-kakoune/index.js --stdin --stdin-filename "$kak_buffile";} && run '
 	define-command -override lang-repl %{tmux-terminal-vertical node}
 	set-option global softtabstop 2
 	lint-enable
