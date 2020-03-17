@@ -113,6 +113,10 @@ hook global InsertChar h %{ try %{
 #   tmux-new-vertical rename-client docs
 #   set-option global docsclient docs
 # }
+define-command new-vertical %{
+	tmux-terminal-vertical kak -c %val{session}
+}
+alias global nv new-vertical
 
 # Change grep command
 set-option global grepcmd 'ag'
