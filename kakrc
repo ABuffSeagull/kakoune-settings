@@ -15,7 +15,17 @@ plug "h-youhei/kakoune-surround" %{
 	map global user 's' ': enter-user-mode surround<ret>' -docstring 'surround'
 }
 
-plug "eraserhd/parinfer-rust" do %{ cargo install --path . --force }
+plug "eraserhd/parinfer-rust" do %{ cargo install --path . --force } config %{
+  hook global WinSetOption filetype=(clojure) %{
+		parinfer-enable-window -indent
+  }
+}
+
+plug "eraserhd/rep" do %{
+	version=$(git describe --tags --abbrev=0)
+	version=${version:1}
+	curl ""
+}
 
 plug "delapouite/kakoune-buffers" %{
 	hook global WinDisplay .* info-buffers
@@ -39,6 +49,7 @@ plug "alexherbo2/volatile-highlighter.kak" %{
 	hook global WinCreate .* volatile-highlighter-enable
 	set-face global Volatile +b
 }
+
 plug "alexherbo2/search-highlighter.kak" %{
 	hook global WinCreate .* search-highlighter-enable
 	set-face global Search +b
