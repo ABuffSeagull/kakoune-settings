@@ -259,8 +259,6 @@ hook global BufSetOption filetype=clojure %{
   # define-command -override lang-repl %{tmux-terminal-vertical lein repl}
   set-option buffer tabstop 1
   set-option buffer indentwidth 1
-  set-option buffer softtabstop 1
-  parinfer-enable-window -indent
 }
 
 # Python
