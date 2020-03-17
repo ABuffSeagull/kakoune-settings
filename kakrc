@@ -136,10 +136,10 @@ map global normal = ': format<ret>' -docstring 'format buffer'
 hook global BufWritePost .* %{
 	eval %sh{
 		out=""
-		if [[ "$kak_opt_lintcmd" ]]; then
+		if [ -n "$kak_opt_lintcmd" ]; then
 			out="lint"
 		fi
-		if [[ -d ".git" ]]; then
+		if [ -d ".git" ]; then
 			out="$out;git update-diff"
 		fi
 		echo $out
@@ -162,7 +162,7 @@ hook global WinCreate .* %{
   # Show extra whitespace
   add-highlighter window/ regex '\h+$' 0:Error
   eval %sh{
-		if [[ -d ".git" ]]; then
+		if [ -d ".git" ]; then
 			echo "git show-diff"
 		fi
   }
