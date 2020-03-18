@@ -132,7 +132,7 @@ map global normal = ': format<ret>' -docstring 'format buffer'
 hook global BufWritePost .* %{
 	eval %sh{
 		out=""
-		if [ -n "$kak_opt_lintcmd" ]; then
+		if [ "$kak_opt_lintcmd" ]; then
 			out="lint"
 		fi
 		if [ -d ".git" ]; then
