@@ -57,7 +57,7 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	set-option global softtabstop 2
 } config %{
 	hook global WinSetOption filetype=(javascript|typescript|vue|rust|elixir|clojure|python|yaml|dart) "expandtab"
-	hook global WinSetOption filetype=(c|cpp|zig) "smarttab"
+	hook global WinSetOption filetype=(c|cpp|kak|zig) "smarttab"
 }
 
 plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force } %{
