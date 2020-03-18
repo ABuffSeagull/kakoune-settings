@@ -46,12 +46,10 @@ plug "andreyorst/fzf.kak" config %{
 }
 
 plug "alexherbo2/volatile-highlighter.kak" %{
-	hook global WinCreate .* volatile-highlighter-enable
 	set-face global Volatile +b
 }
 
 plug "alexherbo2/search-highlighter.kak" %{
-	hook global WinCreate .* search-highlighter-enable
 	set-face global Search +b
 }
 
