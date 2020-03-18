@@ -1,6 +1,6 @@
 ### Plugins ###
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
-plug "andreyorst/plug.kak" noload
+plug "https://gitlab.com/andreyorst/plug.kak" noload
 
 # kak-lsp
 eval %sh{kak-lsp --kakoune -s $kak_session}
