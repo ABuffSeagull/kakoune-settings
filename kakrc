@@ -21,11 +21,7 @@ plug "eraserhd/parinfer-rust" do %{ cargo install --path . --force } config %{
   }
 }
 
-plug "eraserhd/rep" do %{
-	version=$(git describe --tags --abbrev=0)
-	version=${version:1}
-	curl ""
-}
+plug "eraserhd/rep"
 
 plug "delapouite/kakoune-buffers" %{
 	hook global WinDisplay .* info-buffers
