@@ -45,13 +45,8 @@ plug "andreyorst/fzf.kak" config %{
 	set-option global fzf_highlight_command 'bat'
 }
 
-plug "alexherbo2/volatile-highlighter.kak" %{
-	set-face global Volatile +b
-}
-
-plug "alexherbo2/search-highlighter.kak" %{
-	set-face global Search +b
-}
+plug "alexherbo2/volatile-highlighter.kak"
+plug "alexherbo2/search-highlighter.kak"
 
 plug "abuffseagull/kakoune-toggler" do %{make} %{
 	map global user t ': toggle-word<ret>' -docstring 'toggle word'
