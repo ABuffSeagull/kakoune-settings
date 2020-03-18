@@ -71,6 +71,9 @@ plug "lenormf/kakoune-extra" load %{
 	autosplit.kak
 	hatch_terminal.kak
 	idsession.kak
+} %{
+	set-option global grepmenucmd 'ag --vimgrep'
+	hook global KakBegin .* idsession
 }
 
 plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
