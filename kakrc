@@ -1,6 +1,6 @@
 ### Plugins ###
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
-plug "https://gitlab.com/andreyorst/plug.kak" noload
+plug "andreyorst/plug.kak" domain "gitlab.com" noload
 
 # kak-lsp
 eval %sh{kak-lsp --kakoune -s $kak_session}
@@ -15,10 +15,11 @@ plug "h-youhei/kakoune-surround" %{
 	map global user 's' ': enter-user-mode surround<ret>' -docstring 'surround'
 }
 
-plug "eraserhd/parinfer-rust" do %{ cargo install --path . --force } config %{
-  hook global WinSetOption filetype=(clojure) %{
-		parinfer-enable-window -indent
-  }
+plug "eraserhd/parinfer-rust" do %{
+	cargo build --release --locked
+	cargo install --path . --force
+} config %{
+  hook global WinSetOption filetype=(clojure) 'parinfer-enable-window -indent'
 }
 
 plug "eraserhd/rep"
@@ -34,7 +35,7 @@ plug "occivink/kakoune-snippets" %{
 	map global insert <a-E> '<a-;>: snippets-select-next-placeholders<ret>'
 }
 
-plug "andreyorst/fzf.kak" config %{
+plug "andreyorst/fzf.kak" domain "gitlab.com" depth-sort config %{
 	map global user f ': fzf-mode<ret>'	-docstring 'fzf…'
 } defer "fzf" %{
 	set-option global fzf_file_command 'fd'
@@ -49,18 +50,21 @@ plug "abuffseagull/kakoune-toggler" do %{make} %{
 	map global user T ': toggle-WORD<ret>' -docstring 'toggle WORD'
 }
 
-plug "andreyorst/smarttab.kak" defer smarttab %{
+plug "andreyorst/smarttab.kak" domain "gitlab.com" defer smarttab %{
 	set-option global softtabstop 2
 } config %{
-	hook global WinSetOption filetype=(javascript|typescript|vue|rust|elixir|clojure|python|yaml|dart) "expandtab"
-	hook global WinSetOption filetype=(c|cpp|kak|zig) "smarttab"
+	hook global WinSetOption filetype=(clojure|dart|elixir|elm|javascript|python|rust|typescript|vue|yaml|zig) "expandtab"
+	hook global WinSetOption filetype=(c|cpp|kak) "smarttab"
 }
 
-plug "abuffseagull/kakoune-discord" do %{ cargo install --path . --force } %{
+plug "abuffseagull/kakoune-discord" do %{
+	cargo build --release --locked
+	cargo install --path . --force
+} %{
 	discord-presence-enable
 }
 
-plug "lenormf/kakoune-extra" load %{
+plug "lenormf/kakoune-extra" subset %{
 	tldr.kak
 	grepmenu.kak
 	intfiletype/git.kak
@@ -70,9 +74,10 @@ plug "lenormf/kakoune-extra" load %{
 } %{
 	set-option global grepmenucmd 'ag --vimgrep'
 	hook global KakBegin .* idsession
+	alias global hatch hatch-terminal-tmux
 }
 
-plug "alexherbo2/auto-pairs.kak" %{ hook global WinCreate .* auto-pairs-enable }
+plug "alexherbo2/auto-pairs.kak"
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
@@ -106,9 +111,8 @@ hook global InsertChar h %{ try %{
 #   tmux-new-vertical rename-client docs
 #   set-option global docsclient docs
 # }
-define-command new-vertical %{
-	tmux-terminal-vertical kak -c %val{session}
-}
+define-command new-vertical 'tmux-terminal-vertical kak -c %val{session}'
+
 alias global nv new-vertical
 
 # Change grep command
@@ -137,6 +141,7 @@ hook global BufWritePost .* %{
 		echo $out
 	}
 }
+
 
 define-command haste %{
 	execute-keys Z\%<a-|>haste<space>|<space>xclip<space><minus>sel<space>clip<ret>z
@@ -242,6 +247,9 @@ hook global WinSetOption filetype=elixir %{
   set-option window formatcmd 'mix format -'
   set-option window makecmd 'mix'
   hook window InsertChar d -group elixir-indent elixir-deindent-on-end
+	hook buffer BufWritePre .* %{
+		format
+	}
   # lsp-enable
 }
 
@@ -276,4 +284,13 @@ hook global BufSetOption filetype=zig %{
 
 hook global BufSetOption filetype=dart %{
 	set-option buff formatcmd 'dartfmt'
+}
+
+hook global BufSetOption filetype=elm %{
+	set-option buffer formatcmd 'elm-format --stdin'
+	set-option buffer tabstop 4
+	set-option buffer indentwidth 4
+	hook buffer BufWritePre .* %{
+		format
+	}
 }
