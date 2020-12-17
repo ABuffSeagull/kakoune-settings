@@ -3,7 +3,7 @@ toggles = [
 	["true", "false"],
 	["begin", "end"],
 	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
-	["0", "1"],
+	["0", "1", "-1"],
 	["if", "else"],
 	["on", "off"],
 	["yes", "no"],
@@ -22,11 +22,41 @@ toggles = [
 	["const", "let", "var"],
 	["===", "!=="],
 	["setInterval", "setTimeout"],
+	["clearInterval", "clearTimeout"],
 	["in", "of"],
 ]
 
+[rust]
+toggles = [
+	["filter", "map_filter"],
+	["find", "map_find"],
+	["Option", "Result"],
+]
+
 [vue]
-extends = ["javascript"]
+extends = ["html"]
 toggles = [
 	["v-if", "v-show"],
+]
+
+[elm]
+toggles = [
+	["True", "False"],
+]
+
+[html]
+extends = ["javascript"]
+toggles = [
+	["span", "div"],
+]
+
+[elixir]
+toggles = [
+	["and", "or"],
+	["Enum", "Stream"],
+]
+
+[zig]
+toggles = [
+	["const", "var"],
 ]
