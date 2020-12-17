@@ -50,9 +50,9 @@ plug "delapouite/kakoune-buffers"	%{
 }
 
 plug "occivink/kakoune-snippets" %{
-	set-option global	snippets_auto_expand false
+	set-option global	snippets_auto_expand true
 	map	global insert	<a-n>	'<a-;>:	snippets-select-next-placeholders<ret>'
-	map	global insert	<a-e>	'<esc>B: snippet'
+	# map	global insert	<a-e>	'<esc>B: snippet'
 	#	map	global insert	<a-e>	'<a-;>hG:	sni'
 }
 
