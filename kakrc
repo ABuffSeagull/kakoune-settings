@@ -2,9 +2,17 @@
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "robertmeta/plug.kak" noload
 
-# kak-lsp
-eval %sh{kak-lsp --kakoune -s $kak_session}
-set-option global lsp_hover_anchor true
+#	kak-lsp
+plug "kak-lsp/kak-lsp" do	%{
+	cargo	install	--locked --force --path	.
+}	config %{
+	hook global	WinSetOption filetype=(elm|zig|sh|rust)	%{
+		set-option window	lsp_auto_highlight_references	true
+		set-option window	lsp_hover_anchor false
+		lsp-auto-hover-enable
+		echo -debug	"Enabling	LSP	for	filtetype	%opt{filetype}"
+		lsp-enable-window
+	}
 
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
