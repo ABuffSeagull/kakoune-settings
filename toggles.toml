@@ -60,3 +60,9 @@ toggles = [
 toggles = [
 	["const", "var"],
 ]
+
+[typescript]
+extends = ["javascript"]
+toggles = [
+	["type", "interface"],
+]
