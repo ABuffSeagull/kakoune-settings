@@ -4,7 +4,7 @@ plug "robertmeta/plug.kak" noload
 
 #	kak-lsp
 plug "kak-lsp/kak-lsp" do	%{
-	cargo	install	--locked --force --path	.
+	cargo	install	--force --path	.
 }	config %{
 	hook global	WinSetOption filetype=(elm|zig|sh|rust)	%{
 		set-option window	lsp_auto_highlight_references	true
