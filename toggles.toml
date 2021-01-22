@@ -14,6 +14,7 @@ toggles = [
 	["x", "y"],
 	["<", ">"],
 	["disable", "enable"],
+	["private", "public"],
 ]
 
 [javascript]
@@ -21,8 +22,8 @@ toggles = [
 	["window", "document"],
 	["const", "let", "var"],
 	["===", "!=="],
-	["setInterval", "setTimeout"],
-	["clearInterval", "clearTimeout"],
+	["setinterval", "settimeout"],
+	["clearinterval", "cleartimeout"],
 	["in", "of"],
 ]
 
@@ -30,7 +31,7 @@ toggles = [
 toggles = [
 	["filter", "map_filter"],
 	["find", "map_find"],
-	["Option", "Result"],
+	["option", "result"],
 ]
 
 [vue]
@@ -41,7 +42,7 @@ toggles = [
 
 [elm]
 toggles = [
-	["True", "False"],
+	["true", "false"],
 ]
 
 [html]
@@ -53,7 +54,7 @@ toggles = [
 [elixir]
 toggles = [
 	["and", "or"],
-	["Enum", "Stream"],
+	["enum", "stream"],
 ]
 
 [zig]
