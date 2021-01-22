@@ -126,7 +126,7 @@ alias	global nv	new-vertical
 set-option global	grepcmd	'rg	--vimgrep'
 
 #	Copy to	clipboard
-map	global user	y	<a-|>xclip<space><minus>sel<space>clip<ret>	-docstring 'copy to	clipboard'
+map	global user	y	<a-|>xsel<space><minus>ib<ret>	-docstring 'copy to	clipboard'
 
 #	Comment	line
 map	global normal	'#'	': comment-line<ret>'	-docstring 'comment	line'
