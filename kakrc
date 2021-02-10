@@ -75,7 +75,7 @@ plug "andreyorst/smarttab.kak" defer smarttab	%{
 	set-option global	softtabstop	2
 }	config %{
 	hook global	BufSetOption filetype=(clojure|dart|elixir|elm|javascript|python|rust|typescript|vue|yaml|zig) expandtab
-	hook global	BufSetOption filetype=(c|cpp|kak)	smarttab
+	hook global	BufSetOption filetype=(c|cpp|kak|toml)	smarttab
 }
 
 plug "abuffseagull/kakoune-discord"	do %{	cargo	install	--force	--path . } %{
@@ -282,4 +282,10 @@ hook global	BufSetOption filetype=elm	%{
 	set-option buffer	formatcmd	'elm-format	--stdin'
 	set-option buffer	tabstop	4
 	set-option buffer	indentwidth	4
+}
+
+hook global BufSetOption filetype=toml %{
+	set-option buffer tabstop     4
+	set-option buffer indentwidth 4
+	set-option buffer softtabstop 4
 }
