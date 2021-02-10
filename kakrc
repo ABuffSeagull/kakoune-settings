@@ -152,7 +152,7 @@ hook global	BufWritePost .*	%{
 
 
 define-command haste %{
-	execute-keys Z\%<a-|>haste<space>|<space>xclip<space><minus>sel<space>clip<ret>z
+	execute-keys Z\%<a-|>haste<space>|<space>xsel<space><minus>ib<ret>z
 }
 
 set-option global	autoreload yes
