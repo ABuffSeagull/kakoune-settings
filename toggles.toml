@@ -1,18 +1,18 @@
 [global]
-toggles	=	[
+toggles	= [
 	["true", "false"],
-	["begin",	"end"],
-	["monday", "tuesday",	"wednesday", "thursday", "friday", "saturday", "sunday"],
-	["black",	"white"],
+	["begin", "end"],
+	["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"],
+	["black", "white"],
 	["high", "low"],
 	["horizontal", "vertical"],
-	["inner",	"outer"],
+	["inner", "outer"],
 	["left", "right"],
-	["top",	"bottom"],
-	["0",	"1", "-1"],
+	["top", "bottom"],
+	["0", "1", "-1"],
 	["if", "else"],
 	["on", "off"],
-	["yes",	"no"],
+	["yes", "no"],
 	["==", "!="],
 	["&&", "||"],
 	["sin", "cos"],
@@ -24,92 +24,92 @@ toggles	=	[
 ]
 
 [javascript]
-toggles	=	[
+toggles	= [
 	["window", "document"],
-	["const",	"let", "var"],
+	["const", "let", "var"],
 	["import", "export"],
 	["join", "split"],
 	["JSON.parse", "JSON.stringify"],
-	["parse",	"stringify"],
-	["pop",	"push"],
-	["unshift",	"shift"],
-	["test.only",	"test"],
+	["parse", "stringify"],
+	["pop", "push"],
+	["unshift", "shift"],
+	["test.only", "test"],
 
 	["onAnimationStart", "onAnimationEnd"],
-	["onChange", "onInput",	"onSubmit"],
-	["onClick",	"onDoubleClick"],
+	["onChange", "onInput", "onSubmit"],
+	["onClick", "onDoubleClick"],
 	["onCompositionStart", "onCompositionEnd"],
-	["onCopy", "onCut",	"onPaste"],
-	["onDragEnter",	"onDragLeave"],
-	["onDragStart",	"onDragEnd"],
-	["onFocus",	"onBlur"],
-	["onKeyDown",	"onKeyUp"],
-	["onMouseDown",	"onMouseUp"],
+	["onCopy", "onCut", "onPaste"],
+	["onDragEnter", "onDragLeave"],
+	["onDragStart", "onDragEnd"],
+	["onFocus", "onBlur"],
+	["onKeyDown", "onKeyUp"],
+	["onMouseDown", "onMouseUp"],
 	["onMouseEnter", "onMouseLeave"],
 	["onTouchStart", "onTouchEnd"],
 	["addEventListener", "removeEventListener"],
 	["animationstart", "animationend"],
-	["change", "input",	"submit"],
+	["change", "input", "submit"],
 	["dblclick", "click"],
 	["compositionstart", "compositionend"],
-	["copy", "cut",	"paste"],
-	["dragenter",	"dragleave"],
-	["dragstart",	"dragend"],
-	["focus",	"blur"],
-	["keydown",	"keyup"],
-	["mousedown",	"mouseup"],
+	["copy", "cut", "paste"],
+	["dragenter", "dragleave"],
+	["dragstart", "dragend"],
+	["focus", "blur"],
+	["keydown", "keyup"],
+	["mousedown", "mouseup"],
 	["mouseenter", "mouseleave"],
 	["touchstart", "touchend"],
 
-	["===",	"!=="],
-	["setInterval",	"setTimeout"],
-	["clearInterval",	"clearTimeout"],
+	["===", "!=="],
+	["setInterval", "setTimeout"],
+	["clearInterval", "clearTimeout"],
 	["in", "of"],
 	["null", "undefined"],
 ]
 
 [rust]
-toggles	=	[
+toggles	= [
 	["filter", "map_filter"],
 	["find", "map_find"],
 	["Option", "Result"],
 ]
 
 [vue]
-extends	=	["html"]
-toggles	=	[
+extends	= ["html"]
+toggles	= [
 	["v-if", "v-show"],
 ]
 
 [elm]
-toggles	=	[
+toggles	= [
 	["true", "false"],
 ]
 
 [html]
-extends	=	["javascript"]
-toggles	=	[
+extends	= ["javascript"]
+toggles	= [
 	["span", "div"],
-  ["head", "body"],
-  ["header", "footer"],
-  ["ol", "ul"],
-  ["tr", "td"],
+	["head", "body"],
+	["header", "footer"],
+	["ol", "ul"],
+	["tr", "td"],
 ]
 
 [elixir]
-toggles	=	[
-	["and",	"or"],
+toggles	= [
+	["and", "or"],
 	["Enum", "Stream"],
 ]
 
 [zig]
-toggles	=	[
-	["const",	"var"],
+toggles	= [
+	["const", "var"],
 ]
 
 [typescript]
-extends	=	["javascript"]
-toggles	=	[
+extends	= ["javascript"]
+toggles	= [
 	["type", "interface"],
 	["nullable", "optional"],
 ]
