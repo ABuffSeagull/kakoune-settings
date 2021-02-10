@@ -65,6 +65,7 @@ toggles	=	[
 	["setInterval",	"setTimeout"],
 	["clearInterval",	"clearTimeout"],
 	["in", "of"],
+	["null", "undefined"],
 ]
 
 [rust]
