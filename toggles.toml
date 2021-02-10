@@ -15,12 +15,12 @@ toggles	=	[
 	["yes",	"no"],
 	["==", "!="],
 	["&&", "||"],
-	["sin",	"cos"],
-	["+",	"-"],
-	["x",	"y"],
-	["<",	">"],
-	["disable",	"enable"],
-	["private",	"public"],
+	["sin", "cos"],
+	["+", "-"],
+	["x", "y"],
+	["<", ">"],
+	["disable", "enable"],
+	["private", "public"],
 ]
 
 [javascript]
