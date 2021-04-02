@@ -58,7 +58,7 @@ plug "occivink/kakoune-snippets" %{
 
 plug "andreyorst/fzf.kak"	depth-sort config	%{
 	map	global user	f	': fzf-mode<ret>'	-docstring 'fzf…'
-}	defer	"fzf"	%{
+}	defer	"fzf-file"	%{
 	set-option global	fzf_file_command 'fd'
 	set-option global	fzf_highlight_command	'bat'
 }
