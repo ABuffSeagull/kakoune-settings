@@ -96,7 +96,7 @@ plug "lenormf/kakoune-extra" subset	%{
 }
 
 plug "alexherbo2/prelude.kak" %{ require-module prelude }
-plug "alexherbo2/auto-pairs.kak" %{ require-module auto-pairs; auto-pairs-enable }
+# plug "alexherbo2/auto-pairs.kak" %{ require-module auto-pairs; auto-pairs-enable }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
