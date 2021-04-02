@@ -105,6 +105,7 @@ plug "eraserhd/kak-ansi"
 plug "abuffseagull/nord.kak" theme %{	colorscheme	nord }
 
 plug "vurich/zig-kak"
+plug "abuffseagull/liquid.kak"
 
 ###	Indenting	###
 set-option global	tabstop	2
