@@ -122,6 +122,7 @@ hook global	InsertChar h %{	try	%{
 define-command new-vertical	'tmux-terminal-vertical	kak	-c %val{session}'
 
 alias	global nv	new-vertical
+alias global W write
 
 #	Change grep	command
 set-option global	grepcmd	'rg	--vimgrep'
