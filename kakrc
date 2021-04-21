@@ -74,8 +74,8 @@ plug "abuffseagull/kakoune-toggler"	do %{	cargo	install	--path . } %{
 plug "andreyorst/smarttab.kak" defer smarttab	%{
 	set-option global	softtabstop	2
 }	config %{
-	hook global	BufSetOption filetype=(clojure|dart|elixir|elm|javascript|python|rust|typescript|vue|yaml|zig) expandtab
-	hook global	BufSetOption filetype=(c|cpp|kak|toml) smarttab
+	hook global	BufSetOption filetype=(clojure|dart|elixir|elm|javascript|liquid|python|rust|typescript|vue|yaml|zig) expandtab
+	hook global	BufSetOption filetype=(c|cpp|kak|pug|toml) smarttab
 }
 
 plug "abuffseagull/kakoune-discord"	do %{	cargo	install	--force	--path . } %{
