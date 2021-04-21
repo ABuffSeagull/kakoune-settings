@@ -108,9 +108,9 @@ plug "vurich/zig-kak"
 plug "abuffseagull/liquid.kak"
 
 ###	Indenting	###
-set-option global	tabstop	2
-set-option global	indentwidth	2
-set-option global	aligntab true
+set-option global tabstop	    2
+set-option global indentwidth	2
+set-option global aligntab      true
 
 ###	UX Stuff ###
 #	Mouse	Support
@@ -178,21 +178,21 @@ hook global	WinCreate	.* %{
 ###	Language Specific	Stuff	###
 #	Javascript
 hook global	BufSetOption filetype=javascript %{
-	set-option buffer	formatcmd	'prettier	--parser babel'
-	set-option buffer	lintcmd	'run() { cat "$1"	|	npm	--silent run eslint	-f ~/.config/yarn/global/node_modules/eslint-formatter-kakoune/index.js	--stdin	--stdin-filename "$kak_buffile";}	&& run '
+	set-option buffer	formatcmd	'npx prettier	--parser babel'
+	# set-option buffer	lintcmd	'run() { cat "$1"	|	npm	--silent run eslint	-f ~/.config/yarn/global/node_modules/eslint-formatter-kakoune/index.js	--stdin	--stdin-filename "$kak_buffile";}	&& run '
 	set-option buffer	softtabstop	2
 }
 
 #	Typescript
 hook global	BufSetOption filetype=typescript %{
-	set-option buffer	formatcmd	'prettier	--parser typescript'
-	set-option buffer	lintcmd	'npm --silent	run	tslint --formatters-dir	node_modules/tslint-formatter-kakoune	-t kakoune --config	tslint.json'
+	set-option buffer	formatcmd	'npx prettier	--parser typescript'
+	# set-option buffer	lintcmd	'npm --silent	run	tslint --formatters-dir	node_modules/tslint-formatter-kakoune	-t kakoune --config	tslint.json'
 }
 
 #	Vue
 hook global	WinSetOption filetype=vue	%{
-	set-option window	formatcmd	'prettier	--parser vue'
-	set-option window	lintcmd	"yarn	--silent run eslint	--config .eslintrc.js	--format kakoune --rule	'import/no-unresolved: off'	--rule 'import/no-extraneous-dependencies: off'"
+	set-option window	formatcmd	'npx prettier	--parser vue'
+	# set-option window	lintcmd	"yarn	--silent run eslint	--config .eslintrc.js	--format kakoune --rule	'import/no-unresolved: off'	--rule 'import/no-extraneous-dependencies: off'"
 }
 
 hook global	BufSetOption filetype=(javascript|typescript|vue|html) %{
