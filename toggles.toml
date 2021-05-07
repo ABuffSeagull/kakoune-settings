@@ -21,6 +21,8 @@ toggles	= [
 	["<", ">"],
 	["disable", "enable"],
 	["private", "public"],
+	["light", "dark"],
+	["asc", "desc"],
 ]
 
 [javascript]
