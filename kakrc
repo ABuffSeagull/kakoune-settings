@@ -124,6 +124,10 @@ exec -draft hH <a-k>hh<ret> d
 		exec <esc>
 }}
 
+hook global InsertChar , %{ try %{
+	exec -draft hH <a-k>,,<ret> d
+	exec <esc>Gi_|<space>emmet<ret>
+}}
 
 define-command new-vertical 'tmux-terminal-vertical kak -c %val{session}'
 
