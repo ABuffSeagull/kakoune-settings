@@ -301,3 +301,9 @@ hook global BufSetOption filetype=toml %{
 	set-option buffer indentwidth 4
 	set-option buffer softtabstop 4
 }
+
+hook global BufSetOption filetype=liquid %{
+	set-option buffer comment_block_begin '<!--'
+	set-option buffer comment_block_end '-->'
+	set-option buffer formatcmd 'prettier --parser html'
+}
