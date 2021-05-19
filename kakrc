@@ -98,6 +98,8 @@ plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 # 	hook global KakBegin .* idsession
 # 	alias global hatch hatch-terminal-tmux
 # }
+hook global KakBegin .* idsession
+
 plug "alexherbo2/prelude.kak" demand prelude %{}
 # plug "alexherbo2/auto-pairs.kak" demand auto-pairs %{  }
 plug "occivink/kakoune-sudo-write"
