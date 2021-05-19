@@ -82,24 +82,24 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	hook global BufSetOption filetype=(c|cpp|kak|pug|plain|toml) smarttab
 }
 
-plug "lenormf/kakoune-extra" subset	%{
-	tldr.kak
-	grepmenu.kak
-	intfiletype/git.kak
-	autosplit.kak
-	hatch_terminal.kak
-	idsession.kak
-}	%{
-	set-option global	grepmenucmd	'rg	--vimgrep'
-	hook global	KakBegin .*	idsession
-	alias	global hatch hatch-terminal-tmux
-}
-
 plug "alexherbo2/prelude.kak" %{ require-module prelude }
 # plug "alexherbo2/auto-pairs.kak" %{ require-module auto-pairs; auto-pairs-enable }
 plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 	# discord-presence-enable
 }
+
+# plug "lenormf/kakoune-extra" subset %{
+# 	tldr.kak
+# 	grepmenu.kak
+# 	intfiletype/git.kak
+# 	autosplit.kak
+# 	hatch_terminal.kak
+# 	idsession.kak
+# } %{
+# 	set-option global grepmenucmd 'rg --vimgrep'
+# 	hook global KakBegin .* idsession
+# 	alias global hatch hatch-terminal-tmux
+# }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
