@@ -82,8 +82,6 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	hook global BufSetOption filetype=(c|cpp|kak|pug|plain|toml) smarttab
 }
 
-plug "alexherbo2/prelude.kak" %{ require-module prelude }
-# plug "alexherbo2/auto-pairs.kak" %{ require-module auto-pairs; auto-pairs-enable }
 plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 	# discord-presence-enable
 }
@@ -100,6 +98,8 @@ plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 # 	hook global KakBegin .* idsession
 # 	alias global hatch hatch-terminal-tmux
 # }
+plug "alexherbo2/prelude.kak" demand prelude %{}
+# plug "alexherbo2/auto-pairs.kak" demand auto-pairs %{  }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
