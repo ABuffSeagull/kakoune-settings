@@ -1,6 +1,6 @@
 ### Plugins ###
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
-plug "robertmeta/plug.kak" noload
+plug "andreyorst/plug.kak" noload
 
 # kak-lsp
 plug "kak-lsp/kak-lsp" do %{
