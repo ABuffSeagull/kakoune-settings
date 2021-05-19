@@ -63,8 +63,11 @@ plug "andreyorst/fzf.kak" config %{
 	set-option global fzf_highlight_command 'bat'
 }
 
-plug "alexherbo2/volatile-highlighter.kak"
-plug "alexherbo2/search-highlighter.kak"
+plug "alexherbo2/volatile-highlighter.kak" demand volatile-highlighter %{
+  volatile-highlighter-enable
+}
+plug "alexherbo2/search-highlighter.kak" demand search-highlighter %{
+  search-highlighter-enable
 }
 
 plug "abuffseagull/kakoune-toggler" do %{ cargo install --path . } %{
