@@ -23,6 +23,7 @@ toggles	= [
 	["private", "public"],
 	["light", "dark"],
 	["asc", "desc"],
+	["debug", "info", "warn", "error"],
 ]
 
 [javascript]
