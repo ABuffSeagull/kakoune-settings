@@ -79,7 +79,7 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	set-option global softtabstop 2
 } config %{
 	hook global BufSetOption filetype=(clojure|dart|elixir|elm|javascript|liquid|python|rust|typescript|vue|yaml|zig) expandtab
-	hook global BufSetOption filetype=(c|cpp|kak|pug|plain|toml) smarttab
+	hook global BufSetOption filetype=(c|cpp|kak|lua|pug|plain|toml) smarttab
 }
 
 plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
@@ -308,4 +308,10 @@ hook global BufSetOption filetype=liquid %{
 	set-option buffer comment_block_begin '<!--'
 	set-option buffer comment_block_end '-->'
 	set-option buffer formatcmd 'prettier --parser html'
+}
+
+hook global BufSetOption filetype=lua %{
+	set-option buffer tabstop     4
+	set-option buffer indentwidth 4
+	set-option buffer softtabstop 4
 }
