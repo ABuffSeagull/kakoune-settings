@@ -126,15 +126,9 @@ exec -draft hH <a-k>hh<ret> d
 		exec <esc>
 }}
 
-hook global InsertChar , %{ try %{
-	exec -draft hH <a-k>,,<ret> d
-	exec <esc>Gi_|<space>emmet<ret>
-}}
-
 define-command new-vertical 'tmux-terminal-vertical kak -c %val{session}'
-
-
 alias global nv new-vertical
+
 alias global W write
 
 # Change grep command
@@ -185,6 +179,13 @@ hook global WinCreate .* %{
 			echo "git show-diff"
 		fi
 	}
+}
+
+hook global BufSetOption filetype=(javascript|typescript|html|vue) {
+	hook global InsertChar , %{ try %{
+		exec -draft hH <a-k>,,<ret> d
+		exec <esc>Gi_|<space>emmet<ret>
+	}}
 }
 
 ### Language Specific Stuff ###
