@@ -24,6 +24,7 @@ toggles	= [
 	["light", "dark"],
 	["asc", "desc"],
 	["debug", "info", "warn", "error"],
+	["and", "or"],
 ]
 
 [javascript]
