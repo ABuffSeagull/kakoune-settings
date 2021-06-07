@@ -136,7 +136,7 @@ hook global WinCreate .* %{
 	}
 }
 
-hook global BufSetOption filetype=(javascript|typescript|html|vue) {
+hook global BufSetOption filetype=(javascript|typescript|html|vue) %{
 	hook global InsertChar , %{ try %{
 		exec -draft hH <a-k>,,<ret> d
 		exec <esc>Gi_|<space>emmet<ret>
