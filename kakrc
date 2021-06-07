@@ -124,10 +124,7 @@ define-command haste %{
 set-option global autoreload yes
 
 ### UI Stuff ###
-# colorscheme lucius
 hook global WinCreate .* %{
-# Highlight 81 column
-	#add-highlighter global/ regex ^(\t|\V{2}){40}(\V) 2:Error
 	# Number the lines
 	add-highlighter window/ number-lines -hlcursor -relative
 	# Show extra whitespace
