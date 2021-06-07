@@ -58,18 +58,6 @@ plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 	# discord-presence-enable
 }
 
-# plug "lenormf/kakoune-extra" subset %{
-# 	tldr.kak
-# 	grepmenu.kak
-# 	intfiletype/git.kak
-# 	autosplit.kak
-# 	hatch_terminal.kak
-# 	idsession.kak
-# } %{
-# 	set-option global grepmenucmd 'rg --vimgrep'
-# 	hook global KakBegin .* idsession
-# 	alias global hatch hatch-terminal-tmux
-# }
 hook global KakBegin .* idsession
 
 plug "alexherbo2/prelude.kak" demand prelude %{}
