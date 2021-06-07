@@ -2,25 +2,6 @@
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
 
-# kak-lsp
-plug "kak-lsp/kak-lsp" do %{
-	cargo install --force --path .
-} config %{
-	hook global WinSetOption filetype=(elm|zig|sh|rust) %{
-		set-option window lsp_auto_highlight_references true
-		set-option window lsp_hover_anchor false
-		lsp-auto-hover-enable
-		echo -debug "Enabling LSP for filtetype %opt{filetype}"
-		lsp-enable-window
-	}
-
-	hook global WinSetOption filetype=(rust) %{
-		set window lsp_server_configuration rust.clippy_preference="on"
-	}
-
-	hook global KakEnd .* lsp-exit
-}
-
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
 	map global surround s ': surround<ret>' -docstring 'surround…'
@@ -33,15 +14,6 @@ plug "h-youhei/kakoune-surround" %{
 plug "eraserhd/parinfer-rust" do %{ cargo install --path . } config %{
 	hook global WinSetOption filetype=(clojure) 'parinfer-enable-window -indent'
 }
-
-# plug "eraserhd/rep" do %sh{
-#  cd "${kak_config}/plugins/rep"
-#  latest_tag=$(git describe --abbrev=0)
-#  latest_tag_without_v=$(echo $latest_tag | tail -c +2)
-#  wget \
-#   -O binary.tar.gz \
-#   "https://github.com/eraserhd/rep/releases/download/${latest_tag}/rep-${latest_tag_without_v}-linux-amd64.tar.gz"
-# }
 
 plug "delapouite/kakoune-buffers" %{
 	hook global WinDisplay .* info-buffers
@@ -248,14 +220,12 @@ hook global BufSetOption filetype=rust %{
 	set-option buffer tabstop 4
 	set-option buffer indentwidth 4
 	hook buffer BufWritePre .* format
-	# lsp-enable
 }
 
 # Elixir
 hook global BufSetOption filetype=elixir %{
 	set-option buffer formatcmd 'mix format -'
 	set-option buffer makecmd 'mix'
-	# lsp-enable
 }
 
 # Clojure
