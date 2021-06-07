@@ -60,8 +60,6 @@ plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
 
 hook global KakBegin .* idsession
 
-plug "alexherbo2/prelude.kak" demand prelude %{}
-# plug "alexherbo2/auto-pairs.kak" demand auto-pairs %{  }
 plug "occivink/kakoune-sudo-write"
 plug "abuffseagull/kakoune-vue"
 plug "delapouite/kakoune-auto-percent"
