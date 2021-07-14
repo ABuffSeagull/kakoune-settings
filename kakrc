@@ -102,6 +102,9 @@ map global normal '<a-#>' ': comment-block<ret>' -docstring 'comment line'
 # Format
 map global normal = ': format<ret>' -docstring 'format buffer'
 
+map global normal '<a-c>' 'Glc'
+map global normal '<a-d>' 'Gld'
+
 # Add some stuff to write
 hook global BufWritePost .* %{
 	eval %sh{
