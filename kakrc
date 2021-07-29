@@ -36,9 +36,6 @@ plug "andreyorst/fzf.kak" config %{
 plug "alexherbo2/volatile-highlighter.kak" demand volatile-highlighter %{
   volatile-highlighter-enable
 }
-plug "alexherbo2/search-highlighter.kak" demand search-highlighter %{
-  search-highlighter-enable
-}
 
 plug "abuffseagull/kakoune-toggler" do %{ cargo install --path . } %{
 	map global user t ': toggle-word<ret>' -docstring 'toggle word'
