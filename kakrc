@@ -49,10 +49,6 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	hook global BufSetOption filetype=(c|cpp|eex|kak|lua|pug|plain|toml) smarttab
 }
 
-plug "abuffseagull/kakoune-discord" do %{ cargo install --force --path . } %{
-	# discord-presence-enable
-}
-
 hook global KakBegin .* idsession
 
 plug "occivink/kakoune-sudo-write"
