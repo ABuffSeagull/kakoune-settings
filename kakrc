@@ -43,13 +43,13 @@ plug "abuffseagull/kakoune-toggler" do %{ cargo install --path . } %{
 }
 
 plug "andreyorst/smarttab.kak" defer smarttab %{
-	set-option global softtabstop 2
+	set-option global softtabstop 4
 } config %{
-    expandtab
     hook global BufSetOption filetype=* expandtab
     hook global BufSetOption filetype=(elixir|scheme) %[ set-option buffer softtabstop 2 ]
 }
 
+# TODO: make this into a plugin
 hook global KakBegin .* idsession
 
 plug "occivink/kakoune-sudo-write"
@@ -141,7 +141,6 @@ hook global InsertChar , %{ try %{
 hook global BufSetOption filetype=javascript %{
 	set-option buffer formatcmd 'npx prettier --parser babel'
 	# set-option buffer lintcmd 'run() { cat "$1" | npm --silent run eslint -f ~/.config/yarn/global/node_modules/eslint-formatter-kakoune/index.js --stdin --stdin-filename "$kak_buffile";} && run '
-	set-option buffer softtabstop 2
 }
 
 # Typescript
@@ -193,8 +192,6 @@ hook global BufSetOption filetype=(c|cpp) %{
 hook global BufSetOption filetype=rust %{
 	set-option buffer formatcmd 'rustfmt'
 	set-option buffer makecmd 'cargo'
-	set-option buffer tabstop 4
-	set-option buffer indentwidth 4
 	hook buffer BufWritePre .* format
 }
 
@@ -214,8 +211,6 @@ hook global BufSetOption filetype=(clojure|scheme|lisp) %{
 # Python
 hook global BufSetOption filetype=python %{
 	set-option buffer formatcmd 'black -'
-	set-option buffer tabstop 4
-	set-option buffer indentwidth 4
 }
 
 hook global BufSetOption filetype=scss %{
@@ -230,8 +225,6 @@ hook global BufSetOption filetype=zig %{
 	set-option buffer formatcmd 'zig fmt --stdin'
 	set-option buffer makecmd  'zig'
 	set-option buffer comment_line '//'
-	set-option buffer tabstop 4
-	set-option buffer indentwidth 4
 	hook buffer BufWritePre .* format
 }
 
@@ -241,14 +234,9 @@ hook global BufSetOption filetype=dart %{
 
 hook global BufSetOption filetype=elm %{
 	set-option buffer formatcmd 'elm-format --stdin'
-	set-option buffer tabstop 4
-	set-option buffer indentwidth 4
 }
 
 hook global BufSetOption filetype=toml %{
-	set-option buffer tabstop     4
-	set-option buffer indentwidth 4
-	set-option buffer softtabstop 4
 }
 
 hook global BufSetOption filetype=liquid %{
@@ -258,9 +246,6 @@ hook global BufSetOption filetype=liquid %{
 }
 
 hook global BufSetOption filetype=lua %{
-	set-option buffer tabstop     4
-	set-option buffer indentwidth 4
-	set-option buffer softtabstop 4
 }
 
 hook global BufCreate (*/)?\.rkt %{
