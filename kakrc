@@ -248,6 +248,6 @@ hook global BufSetOption filetype=liquid %{
 hook global BufSetOption filetype=lua %{
 }
 
-hook global BufCreate (*/)?\.rkt %{
+hook global BufCreate (.*/)?\.rkt %{
     set-option buffer filetype scheme
 }
