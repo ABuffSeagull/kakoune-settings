@@ -10,7 +10,7 @@ plug "h-youhei/kakoune-surround" %{
 }
 
 plug "eraserhd/parinfer-rust" do %{ cargo install --path . } config %{
-	hook global WinSetOption filetype=(clojure) 'parinfer-enable-window -indent'
+	hook global WinSetOption filetype=(clojure|scheme) 'parinfer-enable-window -indent'
 }
 
 plug "delapouite/kakoune-buffers" %{
@@ -46,6 +46,8 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 	set-option global softtabstop 2
 } config %{
     expandtab
+    hook global BufSetOption filetype=* expandtab
+    hook global BufSetOption filetype=(elixir|scheme) %[ set-option buffer softtabstop 2 ]
 }
 
 hook global KakBegin .* idsession
@@ -203,10 +205,10 @@ hook global BufSetOption filetype=elixir %{
 }
 
 # Clojure
-hook global BufSetOption filetype=clojure %{
+hook global BufSetOption filetype=(clojure|scheme|lisp) %{
 	set-option buffer comment_line ';'
-	set-option buffer tabstop 1
-	set-option buffer indentwidth 1
+	set-option buffer tabstop 2
+	set-option buffer indentwidth 2
 }
 
 # Python
@@ -259,4 +261,8 @@ hook global BufSetOption filetype=lua %{
 	set-option buffer tabstop     4
 	set-option buffer indentwidth 4
 	set-option buffer softtabstop 4
+}
+
+hook global BufCreate (*/)?\.rkt %{
+    set-option buffer filetype scheme
 }
