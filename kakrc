@@ -61,6 +61,7 @@ plug "abuffseagull/nord.kak" theme %{ colorscheme nord }
 
 plug "vurich/zig-kak"
 plug "abuffseagull/liquid.kak"
+plug "abuffseagull/odin-kak"
 
 ### Indenting ###
 set-option global tabstop     4
