@@ -91,7 +91,7 @@ toggles	= [
 ]
 
 [html]
-extends	= ["javascript"]
+extends	= ["javascript", "css"]
 toggles	= [
 	["span", "div"],
 	["head", "body"],
@@ -116,4 +116,11 @@ extends	= ["javascript"]
 toggles	= [
 	["type", "interface"],
 	["nullable", "optional"],
+]
+
+[liquid]
+extends = ["html"]
+toggles = [
+	["if", "unless"],
+	["endif", "endunless"],
 ]
