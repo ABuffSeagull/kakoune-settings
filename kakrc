@@ -201,6 +201,8 @@ hook global BufSetOption filetype=rust %{
 hook global BufSetOption filetype=elixir %{
 	set-option buffer formatcmd 'mix format -'
 	set-option buffer makecmd 'mix'
+	set-option buffer tabstop 2
+	set-option buffer indentwidth 2
 }
 
 # Clojure
