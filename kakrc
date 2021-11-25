@@ -10,7 +10,7 @@ plug "h-youhei/kakoune-surround" %{
 }
 
 plug "eraserhd/parinfer-rust" do %{ cargo install --path . } config %{
-	hook global WinSetOption filetype=(clojure|scheme) 'parinfer-enable-window -indent'
+	hook global WinSetOption filetype=(clojure|scheme|lisp) 'parinfer-enable-window -indent'
 }
 
 plug "delapouite/kakoune-buffers" %{
