@@ -113,6 +113,7 @@ hook global BufWritePost .* %{
 	}
 }
 
+hook global WinCreate ^[^*]+$ %{ editorconfig-load }
 
 define-command haste %{
 	execute-keys Z\%<a-|>haste<space>|<space>xsel<space><minus>ib<ret>z
