@@ -217,7 +217,7 @@ hook global BufSetOption filetype=python %{
 	set-option buffer formatcmd 'black -'
 }
 
-hook global BufSetOption filetype=scss %{
+hook global BufSetOption filetype=(s?css) %{
 	set-option buffer formatcmd 'prettier --parser scss'
 }
 
