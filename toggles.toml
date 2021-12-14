@@ -124,3 +124,10 @@ toggles = [
 	["if", "unless"],
 	["endif", "endunless"],
 ]
+
+[css]
+toggles = [
+    ["contain", "cover"],
+    ["em", "rem"],
+    ["row", "col"],
+]
