@@ -47,6 +47,11 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 } config %{
     hook global BufSetOption filetype=* expandtab
     hook global BufSetOption filetype=(elixir|scheme|lisp) %[ set-option buffer softtabstop 2 ]
+    define-command width -params 1 %{
+        set-option buffer indentwidth %arg{1}
+        set-option buffer tabstop %arg{1}
+        # set-option buffer softtabstop %arg{1}
+    }
 }
 
 # TODO: make this into a plugin
