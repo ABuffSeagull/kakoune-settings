@@ -103,6 +103,8 @@ map global normal = ': format<ret>' -docstring 'format buffer'
 
 map global normal '<a-c>' 'Glc'
 map global normal '<a-d>' 'Gld'
+map global goto L l
+map global goto H h
 
 # Add some stuff to write
 hook global BufWritePost .* %{
