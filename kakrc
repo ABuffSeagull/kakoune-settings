@@ -52,6 +52,8 @@ plug "andreyorst/fzf.kak" config %{
 } defer fzf-file %{
 	set-option global fzf_file_command 'fd'
 	set-option global fzf_highlight_command 'bat'
+} defer fzf-grep %{
+	set-option global fzf_grep_command 'rg'
 }
 
 plug "alexherbo2/volatile-highlighter.kak" demand volatile-highlighter %{
