@@ -26,7 +26,7 @@ plug "andreyorst/plug.kak" noload
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
 	map global user 's' ': surround<ret>' -docstring 'add surround'
-    map global user 'c' ': change-surround<ret>' -docstring 'change surround'
+	map global user 'c' ': change-surround<ret>' -docstring 'change surround'
 	map global user 'd' ': delete-surround<ret>' -docstring 'delete surround'
 }
 
@@ -66,13 +66,18 @@ plug "abuffseagull/kakoune-toggler" do %{ cargo install --path . } %{
 plug "andreyorst/smarttab.kak" defer smarttab %{
 	set-option global softtabstop 4
 } config %{
-    hook global BufSetOption filetype=* expandtab
-    hook global BufSetOption filetype=(elixir|scheme|lisp) %[ set-option buffer softtabstop 2 ]
-    define-command width -params 1 %{
-        set-option buffer indentwidth %arg{1}
-        set-option buffer tabstop %arg{1}
-        # set-option buffer softtabstop %arg{1}
-    }
+	hook global BufSetOption filetype=* expandtab
+	hook global BufSetOption filetype=(elixir|eex|scheme|lisp) %[
+		set-option buffer softtabstop 2
+		set-option buffer tabstop 2
+		set-option buffer indentwidth 2
+	]
+	define-command width -params 1 %{
+		set-option buffer indentwidth %arg{1}
+		set-option buffer tabstop %arg{1}
+		# set-option buffer softtabstop %arg{1}
+	}
+}
 }
 
 # TODO: make this into a plugin
@@ -148,6 +153,7 @@ hook global WinCreate ^[^*]+$ %{ editorconfig-load }
 define-command haste %{
 	execute-keys Z\%<a-|>haste<space>|<space>xsel<space><minus>ib<ret>z
 }
+
 
 set-option global autoreload yes
 
@@ -284,5 +290,5 @@ hook global BufSetOption filetype=lua %{
 }
 
 hook global BufCreate .*\.rkt %{
-    set-option buffer filetype scheme
+	set-option buffer filetype scheme
 }
