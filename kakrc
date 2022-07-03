@@ -2,6 +2,27 @@
 source "%val{config}/plugins/plug.kak/rc/plug.kak"
 plug "andreyorst/plug.kak" noload
 
+# plug "kak-lsp/kak-lsp" tag "v12.0.1" do %{ cargo install --locked --path . } config %{
+#     hook global WinSetOption filetype=(typescript|elixir|python|liquid) %{
+#         lsp-enable-window
+#     }
+#     map global user l %{: enter-user-mode lsp<ret>} -docstring "LSP mode"
+
+#     face global InfoDefault               Information
+#     face global InfoBlock                 Information
+#     face global InfoBlockQuote            Information
+#     face global InfoBullet                Information
+#     face global InfoHeader                Information
+#     face global InfoLink                  Information
+#     face global InfoLinkMono              Information
+#     face global InfoMono                  Information
+#     face global InfoRule                  Information
+#     face global InfoDiagnosticError       Information
+#     face global InfoDiagnosticHint        Information
+#     face global InfoDiagnosticInformation Information
+#     face global InfoDiagnosticWarning     Information
+# }
+
 plug "h-youhei/kakoune-surround" %{
 	declare-user-mode surround
 	map global user 's' ': surround<ret>' -docstring 'add surround'
