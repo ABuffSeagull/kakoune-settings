@@ -1,4 +1,0 @@
-<script type="module">
-  const eventListener = new EventSource("https://localhost:1234");
-  eventListener.addEventListener("reload", () => location.reload(true));
-</script>
