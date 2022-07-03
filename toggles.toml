@@ -25,6 +25,9 @@ toggles	= [
 	["asc", "desc"],
 	["debug", "info", "warn", "error"],
 	["and", "or"],
+	["width", "height"],
+	["open", "closed"],
+	["request", "response"],
 ]
 
 [javascript]
