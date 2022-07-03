@@ -80,6 +80,9 @@ plug "andreyorst/smarttab.kak" defer smarttab %{
 		# set-option buffer softtabstop %arg{1}
 	}
 }
+
+plug "uniquepointer/pastebin.kak" %{
+	map global user Y ": enter-pastebin-mode<ret>" -docstring "pastebin"
 }
 
 # TODO: make this into a plugin
