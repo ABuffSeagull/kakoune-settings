@@ -136,7 +136,7 @@ map global normal '<a-c>' 'Glc'
 map global normal '<a-d>' 'Gld'
 map global goto L l
 map global goto H h
-map global normal '/' '/(?i)'
+map global normal / '/(?i)'
 map global normal '<a-/>' '<a-/>(?i)'
 
 # Add some stuff to write
