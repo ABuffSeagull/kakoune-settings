@@ -181,38 +181,20 @@ hook global InsertChar , %{ try %{
 }}
 
 ### Language Specific Stuff ###
-# Javascript
-hook global BufSetOption filetype=javascript %{
-	set-option buffer formatcmd 'npx prettier --parser babel'
-	# set-option buffer lintcmd 'run() { cat "$1" | npm --silent run eslint -f ~/.config/yarn/global/node_modules/eslint-formatter-kakoune/index.js --stdin --stdin-filename "$kak_buffile";} && run '
+hook global BufSetOption filetype=(vue|html|json|s?css) %{
+	set-option buffer formatcmd "npx prettier --stdin-filepath %val{buffile}"
 }
 
-# Typescript
-hook global BufSetOption filetype=typescript %{
-	set-option buffer formatcmd 'npx prettier --parser typescript'
-	# set-option buffer lintcmd 'npm --silent run tslint --formatters-dir node_modules/tslint-formatter-kakoune -t kakoune --config tslint.json'
+hook global BufSetOption filetype=(javascript|typescript) %{
+	set-option buffer formatcmd "deno fmt -"
+	hook buffer BufWritePre .* format
 }
 
-# Vue
-hook global WinSetOption filetype=vue %{
-	set-option window formatcmd 'npx prettier --parser vue'
-	# set-option window lintcmd "yarn --silent run eslint --config .eslintrc.js --format kakoune --rule 'import/no-unresolved: off' --rule 'import/no-extraneous-dependencies: off'"
-}
-
-hook global BufSetOption filetype=(javascript|typescript|vue|html) %{
-	set-option buffer makecmd 'npm'
-	lint-enable
-	lint
-}
-
-hook global BufSetOption filetype=html %{
-	set-option buffer formatcmd 'prettier --parser html'
-}
-
-# JSON
-hook global BufSetOption filetype=json %{
-	set-option buffer formatcmd 'prettier --parser=json'
-}
+# hook global BufSetOption filetype=(javascript|typescript|vue|html) %{
+#   set-option buffer makecmd 'npm'
+#   lint-enable
+#   lint
+# }
 
 # C & C++
 hook global BufSetOption filetype=cpp %{
@@ -243,24 +225,16 @@ hook global BufSetOption filetype=rust %{
 hook global BufSetOption filetype=elixir %{
 	set-option buffer formatcmd 'mix format -'
 	set-option buffer makecmd 'mix'
-	set-option buffer tabstop 2
-	set-option buffer indentwidth 2
 }
 
 # Clojure
 hook global BufSetOption filetype=(clojure|scheme|lisp) %{
 	set-option buffer comment_line ';'
-	set-option buffer tabstop 2
-	set-option buffer indentwidth 2
 }
 
 # Python
 hook global BufSetOption filetype=python %{
 	set-option buffer formatcmd 'black -'
-}
-
-hook global BufSetOption filetype=(s?css) %{
-	set-option buffer formatcmd 'prettier --parser scss'
 }
 
 hook global BufSetOption filetype=java %{
@@ -282,16 +256,10 @@ hook global BufSetOption filetype=elm %{
 	set-option buffer formatcmd 'elm-format --stdin'
 }
 
-hook global BufSetOption filetype=toml %{
-}
-
 hook global BufSetOption filetype=liquid %{
 	set-option buffer comment_block_begin '<!--'
 	set-option buffer comment_block_end '-->'
-	set-option buffer formatcmd 'prettier --parser html'
-}
-
-hook global BufSetOption filetype=lua %{
+set-option buffer formatcmd 'prettier --parser html'
 }
 
 hook global BufCreate .*\.rkt %{
